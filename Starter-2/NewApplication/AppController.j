@@ -7,6 +7,7 @@
  */
 
 @import <Foundation/CPObject.j>
+@import <AppKit/CPButton.j>
 
 
 @implementation AppController : CPObject
@@ -24,7 +25,7 @@
         contentView = [theWindow contentView];
 
     _mainWindow = [[CPView alloc] initWithFrame: CGRectMake(0, 0, 1280, 768)];
-    [_mainWindow setBackgroundColor: [CPColor blueColor]];
+    [_mainWindow setBackgroundColor: [CPColor lightGrayColor]];
 
     _label = [[CPTextField alloc] initWithFrame:CGRectMakeZero()];
     [_label setStringValue:@"Hello World!"];
@@ -32,6 +33,7 @@
     [_label sizeToFit];
     [_label setAutoresizingMask:CPViewMinXMargin | CPViewMaxXMargin | CPViewMinYMargin | CPViewMaxYMargin];
     [_label setCenter:[contentView center]];
+    [_label setTransform:CPAffineTransformMakeRotation(-M_PI / 2)];
 
     var text = [[CPTextField alloc] initWithFrame: CGRectMake(10, 10, 100, 100)];
     [text setStringValue:"Swag"];
@@ -41,26 +43,31 @@
     _maandagButton = [[CPButton alloc] initWithFrame: CGRectMake(0, 0, 60, 200)];
     [_maandagButton setTarget:self];
     [_maandagButton setAction:@selector(maandagFunction)];
-    //[_maandagButton setBackgroundColor:[CPColor redColor]];
-    //[_maandagButton setImage:_buttonImage];
+    [_maandagButton setBordered:NO];
+    [_maandagButton setBackgroundColor:[CPColor darkGrayColor]];
     [_maandagButton setAlternateImage: nil];
     [_maandagButton setTitle:"Maandag"];
+    [_maandagButton setTextColor:[CPColor whiteColor]];
 
     //SET BORDERED IS NO?
 
     _woensdagButton = [[CPButton alloc] initWithFrame: CGRectMake(0, 200, 60, 200)];
     [_woensdagButton setTarget:self];
     [_woensdagButton setAction:@selector(woensdagFunction)];
-    [_woensdagButton setBackgroundColor:[CPColor redColor]];
-    [_woensdagButton setImage:_buttonImage];
+    [_woensdagButton setBordered:NO];
+    [_woensdagButton setBackgroundColor:[CPColor darkGrayColor]];
+    //[_woensdagButton setImage:_buttonImage];
     [_woensdagButton setTitle:"Woensdag"];
+    [_woensdagButton setTextColor:[CPColor whiteColor]];
 
     _vrijdagButton = [[CPButton alloc] initWithFrame: CGRectMake(0, 400, 60, 200)];
     [_vrijdagButton setTarget:self];
     [_vrijdagButton setAction:@selector(vrijdagFunction)];
-    [_vrijdagButton setBackgroundColor:[CPColor redColor]];
-    [_vrijdagButton setImage:_buttonImage];
+    [_vrijdagButton setBackgroundColor:[CPColor darkGrayColor]];
+    [_vrijdagButton setBordered:NO];
+    //[_vrijdagButton setImage:_buttonImage];
     [_vrijdagButton setTitle:"Vrijdag"];
+    [_vrijdagButton setTextColor:[CPColor whiteColor]];
 
 
     // Dafuq is this
