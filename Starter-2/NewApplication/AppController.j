@@ -18,8 +18,8 @@
     CPButton _vrijdagButton;
     CPButton _quitButton;
     CPTextField _label;
-    CPView _mainWindow;
-    CPView _contentWindow;
+    CPWindow _mainWindow;
+
 
     // Aside Menu
     CPButton _askQuestion;
@@ -36,9 +36,6 @@
     _mainWindow = [[CPView alloc] initWithFrame: CGRectMake(0, 0, 1280, 768)];
     [_mainWindow setBackgroundColor: [CPColor colorWithCalibratedRed:250.0/255.0 green:247.0/255.0 blue:237.0/255.0 alpha:1.0]];
 
-    contentWindow = [[CPView alloc] initWithFrame:CGRectMake(0, 0, 988, 700)];
-    [contentWindow setBackgroundColor: [CPColor purpleColor]];
-
     _label = [[CPTextField alloc] initWithFrame:CGRectMakeZero()];
     [_label setStringValue:@"Hello World!"];
     [_label setFont:[CPFont boldSystemFontOfSize:24.0]];
@@ -49,7 +46,7 @@
     var text = [[CPTextField alloc] initWithFrame: CGRectMake(10, 10, 100, 100)];
     [text setStringValue:"Swag"];
 
-    _mainWindow = [[CPWindow allo]c initWithFrame]
+    var _buttonImage = [[CPImage alloc] initWithContentsOfFile:"Resources/gray.png" size:CPSizeMake(100, 200)];
 
     _maandagButton = [[CPButton alloc] initWithFrame: CGRectMake(73, 700, 300, 68)];
     [_maandagButton setTarget:self];
@@ -83,19 +80,19 @@
     [_quitButton setTextColor:[CPColor blackColor]];
 
     _askQuestion = [[CPButton alloc] initWithFrame:CGRectMake(988, (768 - 192), 291, 192)];
-    [_askQuestion setBackgroundColor:[CPColor colorWithCalibratedRed:218.0/255.0 green:73.0/255.0 blue:73.0/255.0 alpha:1.0]];
+    [_askQuestion setBackgroundColor:[CPColor darkGrayColor]];
     [_askQuestion setBordered:NO];
 
     _sendWork = [[CPButton alloc] initWithFrame:CGRectMake(988, (768 - 192 * 2), 291, 192)];
-    [_sendWork setBackgroundColor:[CPColor colorWithCalibratedRed:139.0/255.0 green:228.0/255.0 blue:66.0/255.0 alpha:1.0]];
+    [_sendWork setBackgroundColor:[CPColor darkGrayColor]];
     [_sendWork setBordered:NO];
 
     _playQuiz = [[CPButton alloc] initWithFrame:CGRectMake(988, (768 - 192 * 3), 291, 192)];
-    [_playQuiz setBackgroundColor:[CPColor colorWithCalibratedRed:255.0/255.0 green:162.0/255.0 blue:0.0/255.0 alpha:1.0]];
+    [_playQuiz setBackgroundColor:[CPColor darkGrayColor]];
     [_playQuiz setBordered:NO];
 
     _watchShow = [[CPButton alloc] initWithFrame:CGRectMake(988, (768 - 192 * 4), 291, 192)];
-    [_watchShow setBackgroundColor:[CPColor colorWithCalibratedRed:73.0/255.0 green:187.0/255.0 blue:218.0/255.0 alpha:1.0]];
+    [_watchShow setBackgroundColor:[CPColor darkGrayColor]];
     [_watchShow setBordered:NO];
 
     var askLabel = [[CPTextField alloc] initWithFrame:CGRectMake(79, 130, 0, 0)];
