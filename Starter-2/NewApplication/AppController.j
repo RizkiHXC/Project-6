@@ -12,6 +12,8 @@
 
 @implementation AppController : CPObject
 {
+    CGRect hideFrame;
+
     //Bottom
     CPButton _maandagButton;
     CPButton _woensdagButton;
@@ -19,7 +21,6 @@
     CPButton _quitButton;
     CPTextField _label;
     CPWindow _mainWindow;
-
 
     // Aside Menu
     CPButton _askQuestion;
@@ -30,6 +31,8 @@
 
 - (void)applicationDidFinishLaunching:(CPNotification)aNotification
 {
+    hideFrame = CGRectMake(0,0,0,0);
+
     var theWindow = [[CPWindow alloc] initWithContentRect:CGRectMakeZero() styleMask:CPBorderlessBridgeWindowMask],
         contentView = [theWindow contentView];
 
@@ -80,19 +83,19 @@
     [_quitButton setTextColor:[CPColor blackColor]];
 
     _askQuestion = [[CPButton alloc] initWithFrame:CGRectMake(988, (768 - 192), 291, 192)];
-    [_askQuestion setBackgroundColor:[CPColor darkGrayColor]];
+    [_askQuestion setBackgroundColor:[CPColor colorWithCalibratedRed:218.0/255.0 green:73.0/255.0 blue:73.0/255.0 alpha:1.0]];
     [_askQuestion setBordered:NO];
 
     _sendWork = [[CPButton alloc] initWithFrame:CGRectMake(988, (768 - 192 * 2), 291, 192)];
-    [_sendWork setBackgroundColor:[CPColor darkGrayColor]];
+    [_sendWork setBackgroundColor:[CPColor colorWithCalibratedRed:139.0/255.0 green:228.0/255.0 blue:66.0/255.0 alpha:1.0]];
     [_sendWork setBordered:NO];
 
     _playQuiz = [[CPButton alloc] initWithFrame:CGRectMake(988, (768 - 192 * 3), 291, 192)];
-    [_playQuiz setBackgroundColor:[CPColor darkGrayColor]];
+    [_playQuiz setBackgroundColor:[CPColor colorWithCalibratedRed:255.0/255.0 green:162.0/255.0 blue:0.0/255.0 alpha:1.0]];
     [_playQuiz setBordered:NO];
 
     _watchShow = [[CPButton alloc] initWithFrame:CGRectMake(988, (768 - 192 * 4), 291, 192)];
-    [_watchShow setBackgroundColor:[CPColor darkGrayColor]];
+    [_watchShow setBackgroundColor:[CPColor colorWithCalibratedRed:73.0/255.0 green:187.0/255.0 blue:218.0/255.0 alpha:1.0]];
     [_watchShow setBordered:NO];
 
     var askLabel = [[CPTextField alloc] initWithFrame:CGRectMake(79, 130, 0, 0)];
@@ -143,7 +146,7 @@
 - (void) maandagFunction
 {
     console.log("Maandag!");
-    console.log("HAI!");
+    [_askQuestion setFrame:hideFrame];
 }
 
 - (void) woensdagFunction
