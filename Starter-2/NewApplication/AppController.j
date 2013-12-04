@@ -54,6 +54,11 @@
     var workImage = [[CPImage alloc] initWithContentsOfFile:"Resources/ico_pencil.png" size:CPSizeMake(130, 130)];
     var askImage = [[CPImage alloc] initWithContentsOfFile:"Resources/ico_cloud.png" size:CPSizeMake(130, 130)];
 
+
+    //Bottom Menu
+    _quitButton = [[CPButton alloc] initWithFrame:CGRectMake(0, 700, 68, 68)];
+    [_quitButton setBordered:NO];
+
     _maandagButton = [[CPButton alloc] initWithFrame: CGRectMake(51 + 25, 125 + 450, 250, 125)];
     [_maandagButton setTarget:self];
     [_maandagButton setAction:@selector(maandagFunction)];
@@ -91,25 +96,31 @@
     var iconAsk = [[CPImageView alloc] initWithFrame:CGRectMake(80, 10, 130, 130)];
     [iconAsk setImage:askImage];
 
-    _quitButton = [[CPButton alloc] initWithFrame:CGRectMake(0, 700, 68, 68)];
-    [_quitButton setBordered:NO];
 
-    _askQuestion = [[CPButton alloc] initWithFrame:CGRectMake(988, (768 - 192), 291, 192)];
-    [_askQuestion setBackgroundColor:[CPColor colorWithCalibratedRed:218.0/255.0 green:73.0/255.0 blue:73.0/255.0 alpha:1.0]];
-    [_askQuestion setBordered:NO];
 
-    _sendWork = [[CPButton alloc] initWithFrame:CGRectMake(988, (768 - 192 * 2), 291, 192)];
-    [_sendWork setBackgroundColor:[CPColor colorWithCalibratedRed:139.0/255.0 green:228.0/255.0 blue:66.0/255.0 alpha:1.0]];
-    [_sendWork setBordered:NO];
+
+
+    //Aside menu
+    _watchShow = [[CPButton alloc] initWithFrame:CGRectMake(988, (768 - 192 * 4), 291, 192)];
+    [_watchShow setBackgroundColor:[CPColor colorWithCalibratedRed:73.0/255.0 green:187.0/255.0 blue:218.0/255.0 alpha:1.0]];
+    [_watchShow setBordered:NO];
 
     _playQuiz = [[CPButton alloc] initWithFrame:CGRectMake(988, (768 - 192 * 3), 291, 192)];
     [_playQuiz setBackgroundColor:[CPColor colorWithCalibratedRed:255.0/255.0 green:162.0/255.0 blue:0.0/255.0 alpha:1.0]];
     [_playQuiz setBordered:NO];
 
-    _watchShow = [[CPButton alloc] initWithFrame:CGRectMake(988, (768 - 192 * 4), 291, 192)];
-    [_watchShow setBackgroundColor:[CPColor colorWithCalibratedRed:73.0/255.0 green:187.0/255.0 blue:218.0/255.0 alpha:1.0]];
-    [_watchShow setBordered:NO];
+    _sendWork = [[CPButton alloc] initWithFrame:CGRectMake(988, (768 - 192 * 2), 291, 192)];
+    [_sendWork setBackgroundColor:[CPColor colorWithCalibratedRed:139.0/255.0 green:228.0/255.0 blue:66.0/255.0 alpha:1.0]];
+    [_sendWork setBordered:NO];
 
+    _askQuestion = [[CPButton alloc] initWithFrame:CGRectMake(988, (768 - 192), 291, 192)];
+    [_askQuestion setBackgroundColor:[CPColor colorWithCalibratedRed:218.0/255.0 green:73.0/255.0 blue:73.0/255.0 alpha:1.0]];
+    [_askQuestion setBordered:NO];
+
+
+
+
+    //Labels on Buttons
     var askLabel = [[CPTextField alloc] initWithFrame:CGRectMake(79, 130, 0, 0)];
     [askLabel setStringValue:"Stel je vraag aan de gast"];
     [askLabel sizeToFit];
