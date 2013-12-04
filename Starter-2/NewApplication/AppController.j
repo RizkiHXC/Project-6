@@ -36,19 +36,15 @@
     var theWindow = [[CPWindow alloc] initWithContentRect:CGRectMakeZero() styleMask:CPBorderlessBridgeWindowMask],
         contentView = [theWindow contentView];
 
-    _mainWindow = [[CPView alloc] initWithFrame: CGRectMake(0, 0, 1280, 768)];
-    [_mainWindow setBackgroundColor: [CPColor colorWithCalibratedRed:250.0/255.0 green:247.0/255.0 blue:237.0/255.0 alpha:1.0]];
+    _mainWindow = [[CPView alloc] initWithFrame: CGRectMake(51, 125, 850, 450)];
+    [_mainWindow setBackgroundColor: [CPColor colorWithCalibratedRed:73.0/255.0 green:187.0/255.0 blue:218.0/255.0 alpha:1.0]];
 
-    _label = [[CPTextField alloc] initWithFrame:CGRectMakeZero()];
-    [_label setStringValue:@"Hello World!"];
-    [_label setFont:[CPFont boldSystemFontOfSize:24.0]];
-    [_label sizeToFit];
-    [_label setAutoresizingMask:CPViewMinXMargin | CPViewMaxXMargin | CPViewMinYMargin | CPViewMaxYMargin];
-    [_label setCenter:[contentView center]];
-
-    var text = [[CPTextField alloc] initWithFrame: CGRectMake(10, 10, 100, 100)];
-    [text setStringValue:"Swag"];
-
+    // _label = [[CPTextField alloc] initWithFrame:CGRectMakeZero()];
+    // [_label setStringValue:@"Hello World!"];
+    // [_label setFont:[CPFont boldSystemFontOfSize:24.0]];
+    // [_label sizeToFit];
+    // [_label setAutoresizingMask:CPViewMinXMargin | CPViewMaxXMargin | CPViewMinYMargin | CPViewMaxYMargin];
+    // [_label setCenter:[contentView center]];
     var _buttonImage = [[CPImage alloc] initWithContentsOfFile:"Resources/gray.png" size:CPSizeMake(100, 200)];
 
     _maandagButton = [[CPButton alloc] initWithFrame: CGRectMake(73, 700, 300, 68)];
@@ -123,8 +119,7 @@
 
     // Addsubviews
     [contentView addSubview:_mainWindow];
-    [contentView addSubview:_label];
-    //[_quitButton addSubview: text];
+    //[_mainWindow addSubview:_label];
     [contentView addSubview:_maandagButton];
     [contentView addSubview:_woensdagButton];
     [contentView addSubview:_vrijdagButton];
