@@ -49,7 +49,10 @@
     // [_label sizeToFit];
     // [_label setAutoresizingMask:CPViewMinXMargin | CPViewMaxXMargin | CPViewMinYMargin | CPViewMaxYMargin];
     // [_label setCenter:[contentView center]];
-    var _buttonImage = [[CPImage alloc] initWithContentsOfFile:"Resources/gray.png" size:CPSizeMake(100, 200)];
+    var showImage = [[CPImage alloc] initWithContentsOfFile:"Resources/ico_computer.png" size:CPSizeMake(130, 130)];
+    var quizImage = [[CPImage alloc] initWithContentsOfFile:"Resources/ico_graduate.png" size:CPSizeMake(130, 130)];
+    var workImage = [[CPImage alloc] initWithContentsOfFile:"Resources/ico_pencil.png" size:CPSizeMake(130, 130)];
+    var askImage = [[CPImage alloc] initWithContentsOfFile:"Resources/ico_cloud.png" size:CPSizeMake(130, 130)];
 
     _maandagButton = [[CPButton alloc] initWithFrame: CGRectMake(51 + 25, 125 + 450, 250, 125)];
     [_maandagButton setTarget:self];
@@ -76,8 +79,17 @@
     [_vrijdagButton setTitle:"Vrijdag"];
     [_vrijdagButton setTextColor:[CPColor blackColor]];
 
-    var iconAsk = [[CPImageView alloc] initWithFrame:CGRectMake(50, 10, 80, 60)];
-    [iconAsk setImage:_buttonImage];
+    var iconShow = [[CPImageView alloc] initWithFrame:CGRectMake(80, 10, 130, 130)];
+    [iconShow setImage:showImage];
+
+    var iconQuiz = [[CPImageView alloc] initWithFrame:CGRectMake(80, 10, 130, 130)];
+    [iconQuiz setImage:quizImage];
+
+    var iconWork = [[CPImageView alloc] initWithFrame:CGRectMake(80, 10, 130, 130)];
+    [iconWork setImage:workImage];
+
+    var iconAsk = [[CPImageView alloc] initWithFrame:CGRectMake(80, 10, 130, 130)];
+    [iconAsk setImage:askImage];
 
     _quitButton = [[CPButton alloc] initWithFrame:CGRectMake(0, 700, 68, 68)];
     [_quitButton setBordered:NO];
@@ -134,7 +146,10 @@
     [_baseView addSubview: _watchShow]
 
     //Images
-    [_watchShow addSubview:iconAsk];
+    [_watchShow addSubview:iconShow];
+    [_playQuiz addSubview:iconQuiz];
+    [_sendWork addSubview:iconWork];
+    [_askQuestion addSubview:iconAsk];
 
     [_askQuestion addSubview: askLabel];
     [_sendWork addSubview: sendLabel];
