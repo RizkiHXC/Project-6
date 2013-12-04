@@ -20,7 +20,8 @@
     CPButton _vrijdagButton;
     CPButton _quitButton;
     CPTextField _label;
-    CPWindow _mainWindow;
+    CPView _baseView
+    CPView _mainWindow;
 
     // Aside Menu
     CPButton _askQuestion;
@@ -36,6 +37,9 @@
     var theWindow = [[CPWindow alloc] initWithContentRect:CGRectMakeZero() styleMask:CPBorderlessBridgeWindowMask],
         contentView = [theWindow contentView];
 
+    _baseView = [[CPView alloc] initWithFrame: CGRectMake(0,0,1280,800)];
+    [_baseView setBackgroundColor: [CPColor colorWithCalibratedRed:255.0/255.0 green:238.0/255.0 blue:190.0/255.0 alpha:1.0]];
+
     _mainWindow = [[CPView alloc] initWithFrame: CGRectMake(51, 125, 850, 450)];
     [_mainWindow setBackgroundColor: [CPColor colorWithCalibratedRed:73.0/255.0 green:187.0/255.0 blue:218.0/255.0 alpha:1.0]];
 
@@ -47,7 +51,7 @@
     // [_label setCenter:[contentView center]];
     var _buttonImage = [[CPImage alloc] initWithContentsOfFile:"Resources/gray.png" size:CPSizeMake(100, 200)];
 
-    _maandagButton = [[CPButton alloc] initWithFrame: CGRectMake(73, 700, 300, 68)];
+    _maandagButton = [[CPButton alloc] initWithFrame: CGRectMake(51 + 25, 125 + 450, 250, 125)];
     [_maandagButton setTarget:self];
     [_maandagButton setAction:@selector(maandagFunction)];
     [_maandagButton setBordered:NO];
@@ -56,7 +60,7 @@
     [_maandagButton setTitle:"Maandag"];
     [_maandagButton setTextColor:[CPColor blackColor]];
 
-    _woensdagButton = [[CPButton alloc] initWithFrame: CGRectMake(378, 700, 300, 68)];
+    _woensdagButton = [[CPButton alloc] initWithFrame: CGRectMake(51 + 25 + 250 + 25, 125 + 450, 250, 125)];
     [_woensdagButton setTarget:self];
     [_woensdagButton setAction:@selector(woensdagFunction)];
     [_woensdagButton setBordered:NO];
@@ -64,7 +68,7 @@
     [_woensdagButton setTitle:"Woensdag"];
     [_woensdagButton setTextColor:[CPColor blackColor]];
 
-    _vrijdagButton = [[CPButton alloc] initWithFrame: CGRectMake(683, 700, 300, 68)];
+    _vrijdagButton = [[CPButton alloc] initWithFrame: CGRectMake(51 + 25 + 250 + 250 + 25 + 25, 125 + 450, 250, 125)];
     [_vrijdagButton setTarget:self];
     [_vrijdagButton setAction:@selector(vrijdagFunction)];
     [_vrijdagButton setBackgroundColor:[CPColor colorWithCalibratedRed:158.0/255.0 green:243.0/255.0 blue:248.0/255.0 alpha:1.0]];
@@ -72,11 +76,11 @@
     [_vrijdagButton setTitle:"Vrijdag"];
     [_vrijdagButton setTextColor:[CPColor blackColor]];
 
+    var iconAsk = [[CPImageView alloc] initWithFrame:CGRectMake(50, 10, 80, 60)];
+    [iconAsk setImage:_buttonImage];
+
     _quitButton = [[CPButton alloc] initWithFrame:CGRectMake(0, 700, 68, 68)];
-    [_quitButton setBackgroundColor:[CPColor redColor]];
     [_quitButton setBordered:NO];
-    [_quitButton setTitle:"Quit"];
-    [_quitButton setTextColor:[CPColor blackColor]];
 
     _askQuestion = [[CPButton alloc] initWithFrame:CGRectMake(988, (768 - 192), 291, 192)];
     [_askQuestion setBackgroundColor:[CPColor colorWithCalibratedRed:218.0/255.0 green:73.0/255.0 blue:73.0/255.0 alpha:1.0]];
@@ -118,16 +122,19 @@
     [theWindow orderFront:self];
 
     // Addsubviews
-    [contentView addSubview:_mainWindow];
-    //[_mainWindow addSubview:_label];
-    [contentView addSubview:_maandagButton];
-    [contentView addSubview:_woensdagButton];
-    [contentView addSubview:_vrijdagButton];
-    [contentView addSubview:_quitButton];
-    [contentView addSubview: _askQuestion];
-    [contentView addSubview: _sendWork];
-    [contentView addSubview: _playQuiz];
-    [contentView addSubview: _watchShow]
+    [contentView addSubview: _baseView];
+    [_baseView addSubview:_mainWindow];
+    [_baseView addSubview:_maandagButton];
+    [_baseView addSubview:_woensdagButton];
+    [_baseView addSubview:_vrijdagButton];
+    [_baseView addSubview:_quitButton];
+    [_baseView addSubview: _askQuestion];
+    [_baseView addSubview: _sendWork];
+    [_baseView addSubview: _playQuiz];
+    [_baseView addSubview: _watchShow]
+
+    //Images
+    [_watchShow addSubview:iconAsk];
 
     [_askQuestion addSubview: askLabel];
     [_sendWork addSubview: sendLabel];
