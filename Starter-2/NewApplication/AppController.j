@@ -8,6 +8,7 @@
 
 @import <Foundation/CPObject.j>
 @import <AppKit/CPButton.j>
+@import "CPPropertyAnimation.j"
 
 
 @implementation AppController : CPObject
@@ -26,7 +27,7 @@
     CPButton _vrijdagButton;
     CPButton _quitButton;
     CPTextField _label;
-    CPView _baseView
+    CPView _baseView;
     CPView _mainWindow;
 
     // Aside Menu
@@ -34,6 +35,11 @@
     CPButton _sendWork;
     CPButton _playQuiz;
     CPButton _watchShow;
+
+    CPPropertyAnimation animator;
+
+    //UITZENDING TERUG BEKIJKEN
+    CPButton _findGuest, _searchSub, _searchDate;
 }
 
 - (void)applicationDidFinishLaunching:(CPNotification)aNotification
@@ -102,6 +108,7 @@
     _quitButton = [[CPButton alloc] initWithFrame:CGRectMake(0, 710, 80, 80)];
     [_quitButton setBordered:NO];
     [_quitButton setImage:homeImage];
+    [_quitButton setAction:@selector(homeFunction)];
 
     _maandagButton = [[CPButton alloc] initWithFrame: CGRectMake(51 + 25, 125 + 450, 250, 125)];
     [_maandagButton setTarget:self];
@@ -174,6 +181,7 @@
     //Aside menu
     _watchShow = [[CPButton alloc] initWithFrame:CGRectMake(952, 75, 275, 150)];
     [_watchShow setBackgroundColor:[CPColor colorWithCalibratedRed:73.0/255.0 green:187.0/255.0 blue:218.0/255.0 alpha:1.0]];
+    [_watchShow setAction:@selector(watchShow)];
     [_watchShow setBordered:NO];
 
     _playQuiz = [[CPButton alloc] initWithFrame:CGRectMake(952, 75 + 150 + 25, 275, 150)];
@@ -216,8 +224,18 @@
     [watchLabel sizeToFit];
     [watchLabel setTextColor: [CPColor whiteColor]];
 
+
+
+    //Animations
+    // var animator = [[CPPropertyAnimation alloc] initWithView:headerTitle property:@"alphaValue"];
+    // [animator setStart:1.0];
+    // [animator setEnd:0.0];
+    // [animator setDuration:10];
+    // [animator startAnimation];
+
     // Dafuq is this
     [theWindow orderFront:self];
+
 
     // Addsubviews
     [contentView addSubview: _baseView];
@@ -300,6 +318,99 @@
     [timeMon setTextColor: [CPColor grayColor]];
     [timeWed setTextColor: [CPColor grayColor]];
     [timeFri setTextColor: [CPColor whiteColor]];
+}
+
+
+
+
+- (void) watchShow {
+    [headerTitle setStringValue:"Kijk een uitzending terug"];
+    [headerTitle sizeToFit];
+
+    [_maandagButton setAlphaValue:0];
+    [_woensdagButton setAlphaValue:0];
+    [_vrijdagButton setAlphaValue:0];
+    [_mainWindow setAlphaValue:0];
+
+    _findGuest = [[CPButton alloc] initWithFrame: CGRectMake(76, 200, 250, 370)];
+    [_findGuest setBackgroundColor: activeBlueColor];
+    [_findGuest setAction:@selector(findGuest)];
+    [_findGuest setBordered:NO];
+
+    _searchSub = [[CPButton alloc] initWithFrame: CGRectMake(76 + 250 + 25, 200, 250, 370)];
+    [_searchSub setBackgroundColor: activeBlueColor];
+    [_searchSub setAction:@selector(findGuest)];
+    [_searchSub setBordered:NO];
+
+    _searchDate = [[CPButton alloc] initWithFrame: CGRectMake(76 + 250 + 25 + 250 + 25, 200, 250, 370)];
+    [_searchDate setBackgroundColor: activeBlueColor];
+    [_searchDate setAction:@selector(findGuest)];
+    [_searchDate setBordered:NO];
+
+
+    //Images
+    var guestIm = [[CPImage alloc] initWithContentsOfFile:"Resources/ico_guest.png" size:CPSizeMake(220, 220)];
+    var subIm = [[CPImage alloc] initWithContentsOfFile:"Resources/ico_sub.png" size:CPSizeMake(220, 220)];
+    var dateIm = [[CPImage alloc] initWithContentsOfFile:"Resources/ico_date.png" size:CPSizeMake(220, 220)];
+
+    var icongGuestIm = [[CPImageView alloc] initWithFrame:CGRectMake(17, 40, 220, 220)];
+    [icongGuestIm setImage:guestIm];
+    var iconSubIm = [[CPImageView alloc] initWithFrame:CGRectMake(17, 40, 220, 220)];
+    [iconSubIm setImage:subIm];
+    var iconDateIm = [[CPImageView alloc] initWithFrame:CGRectMake(17, 40, 220, 220)];
+    [iconDateIm setImage:dateIm];
+
+
+
+    var guestLabel = [[CPTextField alloc] initWithFrame:CGRectMake(403, 270, 170, 80)];
+    [guestLabel setFont:[CPFont fontWithName:"Helvetica" size:30.0]];
+    [guestLabel setStringValue:"Vind een gast!"];
+    [guestLabel setTextColor: [CPColor whiteColor]];
+    [guestLabel setLineBreakMode: CPLineBreakByWordWrapping];
+    [guestLabel setAlignment: CPCenterTextAlignment];
+
+    var subjectLabel = [[CPTextField alloc] initWithFrame:CGRectMake(40, 270, 170, 80)];
+    [subjectLabel setFont:[CPFont fontWithName:"Helvetica" size:30.0]];
+    [subjectLabel setStringValue:"Zoek op onderwerp"];
+    [subjectLabel setTextColor: [CPColor whiteColor]];
+    [subjectLabel setLineBreakMode: CPLineBreakByWordWrapping];
+    [subjectLabel setAlignment: CPCenterTextAlignment];
+
+    var dateLabel = [[CPTextField alloc] initWithFrame:CGRectMake(40, 270, 170, 80)];
+    [dateLabel setFont:[CPFont fontWithName:"Helvetica" size:30.0]];
+    [dateLabel setStringValue:"Zoek op datum"];
+    [dateLabel setTextColor: [CPColor whiteColor]];
+    [dateLabel setLineBreakMode: CPLineBreakByWordWrapping];
+    [dateLabel setAlignment: CPCenterTextAlignment];
+
+
+
+
+    [_baseView addSubview:_findGuest];
+    [_baseView addSubview:_searchSub];
+    [_baseView addSubview:_searchDate];
+    [_findGuest addSubview:icongGuestIm];
+    [_findGuest addSubview:guestLabel]
+    [_searchSub addSubview:iconSubIm];
+    [_searchSub addSubview:subjectLabel];
+    [_searchDate addSubview:iconDateIm];
+    [_searchDate addSubview:dateLabel];
+}
+
+- (void) homeFunction {
+    [headerTitle setStringValue:"Te gast"];
+    [headerTitle sizeToFit];
+
+    [_maandagButton setAlphaValue:1];
+    [_woensdagButton setAlphaValue:1];
+    [_vrijdagButton setAlphaValue:1];
+    [_mainWindow setAlphaValue:1];
+
+
+    //To set nil
+    [_findGuest setAlphaValue:0];
+    [_searchSub setAlphaValue:0];
+    [_searchDate setAlphaValue:0];
 }
 
 
