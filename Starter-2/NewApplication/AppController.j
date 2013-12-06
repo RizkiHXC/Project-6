@@ -14,12 +14,12 @@
 @implementation AppController : CPObject
 {
     CGRect hideFrame;
-    CPColor inactiveBlueColor, activeBlueColor;
+    CPColor inactiveBlueColor, activeBlueColor, activeOrangeColor;
 
     //Text
     CPTextField headerTitle, introText, descriptionText, videoTitle, dayAnnouncement, timeMon, timeWed, timeFri;
 
-    CPWebView videoWebView;
+    CPWebView videoWebView, detailedWebView;
 
     //Bottom
     CPButton _maandagButton;
@@ -40,13 +40,26 @@
 
     //UITZENDING TERUG BEKIJKEN
     CPButton _findGuest, _searchSub, _searchDate;
+
+    //FINDGUEST
+    CPView _fgMainWindow;
+    CPButton _upButton, _bottomButton, guest1IV, guest2IV, guest3IV, guestUp, guestDown;
+
+    //PLAYQUIZ
+    CPView _quizMainWindow;
+    CPButton _puppyButton, _labradorButton, _bulldogButton;
+
+    //ACTUALLY PLAY QUIZ LOL
+    CPButton topleft, topRight, bottomLeft, bottomRight;
 }
 
 - (void)applicationDidFinishLaunching:(CPNotification)aNotification
 {
     hideFrame = CGRectMake(0,0,0,0);
+
     inactiveBlueColor = [CPColor colorWithCalibratedRed:158.0/255.0 green:243.0/255.0 blue:248.0/255.0 alpha:1.0];
     activeBlueColor = [CPColor colorWithCalibratedRed:73.0/255.0 green:187.0/255.0 blue:218.0/255.0 alpha:1.0];
+    activeOrangeColor = [CPColor colorWithCalibratedRed:255.0/255.0 green:162.0/255.0 blue:0/255.0 alpha:1.0];
 
     var theWindow = [[CPWindow alloc] initWithContentRect:CGRectMakeZero() styleMask:CPBorderlessBridgeWindowMask],
         contentView = [theWindow contentView];
@@ -186,6 +199,7 @@
 
     _playQuiz = [[CPButton alloc] initWithFrame:CGRectMake(952, 75 + 150 + 25, 275, 150)];
     [_playQuiz setBackgroundColor:[CPColor colorWithCalibratedRed:255.0/255.0 green:162.0/255.0 blue:0.0/255.0 alpha:1.0]];
+    [_playQuiz setAction:@selector(playQuiz)];
     [_playQuiz setBordered:NO];
 
     _sendWork = [[CPButton alloc] initWithFrame:CGRectMake(952, 75 + 150 + 25 + 150 + 25, 275, 150)];
@@ -226,6 +240,17 @@
 
 
 
+    _upButton = [[CPButton alloc] initWithFrame:CGRectMake(300, 720, 200, 50)];
+    [_upButton setBackgroundColor:activeBlueColor];
+    [_upButton setBordered:NO];
+    [_upButton setTitle:"NAAR BOVEN"];
+    [_upButton setAlphaValue:0];
+    _bottomButton = [[CPButton alloc] initWithFrame:CGRectMake(525, 720, 200, 50)];
+    [_bottomButton setBackgroundColor:activeBlueColor];
+    [_bottomButton setBordered:NO];
+    [_bottomButton setTitle:"NAAR BENEDEN"];
+    [_bottomButton setAlphaValue:0];
+
     //Animations
     // var animator = [[CPPropertyAnimation alloc] initWithView:headerTitle property:@"alphaValue"];
     // [animator setStart:1.0];
@@ -240,6 +265,9 @@
     // Addsubviews
     [contentView addSubview: _baseView];
     [_baseView addSubview:_mainWindow];
+    [_baseView addSubview: _bottomButton];
+    [_baseView addSubview: _upButton];
+
     [_mainWindow addSubview: videoWebView];
     [_mainWindow addSubview: introText];
     [_mainWindow addSubview: descriptionText];
@@ -320,17 +348,23 @@
     [timeFri setTextColor: [CPColor whiteColor]];
 }
 
-
-
-
-- (void) watchShow {
+- (void) watchShow
+{
     [headerTitle setStringValue:"Kijk een uitzending terug"];
+    [headerTitle setTextColor:activeBlueColor];
     [headerTitle sizeToFit];
 
     [_maandagButton setAlphaValue:0];
     [_woensdagButton setAlphaValue:0];
     [_vrijdagButton setAlphaValue:0];
     [_mainWindow setAlphaValue:0];
+    [_fgMainWindow setAlphaValue:0];
+    [_upButton setAlphaValue:0];
+    [_bottomButton setAlphaValue:0];
+    [_quizMainWindow setAlphaValue:0];
+
+    _upButton = [[CPButton alloc] initWithFrame:CGRectMake(300, 720, 200, 50)];
+    _bottomButton = [[CPButton alloc] initWithFrame:CGRectMake(525, 720, 200, 50)];
 
     _findGuest = [[CPButton alloc] initWithFrame: CGRectMake(76, 200, 250, 370)];
     [_findGuest setBackgroundColor: activeBlueColor];
@@ -339,12 +373,12 @@
 
     _searchSub = [[CPButton alloc] initWithFrame: CGRectMake(76 + 250 + 25, 200, 250, 370)];
     [_searchSub setBackgroundColor: activeBlueColor];
-    [_searchSub setAction:@selector(findGuest)];
+    [_searchSub setAction:@selector(searchSub)];
     [_searchSub setBordered:NO];
 
     _searchDate = [[CPButton alloc] initWithFrame: CGRectMake(76 + 250 + 25 + 250 + 25, 200, 250, 370)];
     [_searchDate setBackgroundColor: activeBlueColor];
-    [_searchDate setAction:@selector(findGuest)];
+    [_searchDate setAction:@selector(searchDate)];
     [_searchDate setBordered:NO];
 
 
@@ -362,7 +396,7 @@
 
 
 
-    var guestLabel = [[CPTextField alloc] initWithFrame:CGRectMake(403, 270, 170, 80)];
+    var guestLabel = [[CPTextField alloc] initWithFrame:CGRectMake(40, 270, 170, 80)];
     [guestLabel setFont:[CPFont fontWithName:"Helvetica" size:30.0]];
     [guestLabel setStringValue:"Vind een gast!"];
     [guestLabel setTextColor: [CPColor whiteColor]];
@@ -390,16 +424,238 @@
     [_baseView addSubview:_searchSub];
     [_baseView addSubview:_searchDate];
     [_findGuest addSubview:icongGuestIm];
-    [_findGuest addSubview:guestLabel]
+    [_findGuest addSubview:guestLabel];
     [_searchSub addSubview:iconSubIm];
     [_searchSub addSubview:subjectLabel];
     [_searchDate addSubview:iconDateIm];
     [_searchDate addSubview:dateLabel];
 }
 
+-(void) findGuest
+{
+    [_findGuest setAlphaValue: 0];
+    [_searchSub setAlphaValue: 0];
+    [_searchDate setAlphaValue: 0];
+    [_upButton setAlphaValue: 1];
+    [_bottomButton setAlphaValue: 1];
+
+
+    _fgMainWindow = [[CPView alloc] initWithFrame:CGRectMake(51, 125, 840, 575)];
+    [_fgMainWindow setBackgroundColor:activeBlueColor];
+
+    var titleLabel = [[CPTextField alloc] initWithFrame:CGRectMake(25, 30, 170, 80)];
+    [titleLabel setFont:[CPFont fontWithName:"Helvetica" size:30.0]];
+    [titleLabel setStringValue:"Vind een gast!"];
+    [titleLabel sizeToFit];
+    [titleLabel setTextColor: [CPColor whiteColor]];
+    [titleLabel setLineBreakMode: CPLineBreakByWordWrapping];
+
+    var guest1 = [[CPImage alloc] initWithContentsOfFile:"Resources/ico_guest.png" size:CPSizeMake(150, 150)];
+    var guest2 = [[CPImage alloc] initWithContentsOfFile:"Resources/ico_sub.png" size:CPSizeMake(150, 150)];
+    var guest3 = [[CPImage alloc] initWithContentsOfFile:"Resources/ico_date.png" size:CPSizeMake(150, 150)];
+
+    guest1IV = [[CPButton alloc] initWithFrame:CGRectMake(25, 80, 150, 150)];
+    [guest1IV setImage:guest1];
+    [guest1IV setBordered: NO];
+    [guest1IV setAction:@selector(nickEnSimon)];
+    guest2IV = [[CPButton alloc] initWithFrame:CGRectMake(25 + 150 + 25, 80, 150, 150)];
+    [guest2IV setImage:guest2];
+    [guest2IV setBordered: NO];
+    guest3IV = [[CPButton alloc] initWithFrame:CGRectMake(25 + 150 + 25 + 150 + 25, 80, 150, 150)];
+    [guest3IV setImage:guest3];
+    [guest3IV setBordered: NO];
+
+
+
+    [_baseView addSubview:_fgMainWindow]
+    [_fgMainWindow addSubview: titleLabel];
+    [_fgMainWindow addSubview:guest1IV];
+    [_fgMainWindow addSubview:guest2IV];
+    [_fgMainWindow addSubview:guest3IV];
+}
+
+- (void) nickEnSimon
+{
+    [guest1IV setFrame:hideFrame];
+    [guest2IV setFrame:hideFrame];
+    [guest3IV setFrame:hideFrame];
+
+    guestUp = [[CPButton alloc] initWithFrame:CGRectMake(30, 100, 200, 50)];
+    [guestUp setBackgroundColor:inactiveBlueColor];
+    [guestUp setBordered:NO];
+    [guestUp setTitle:"NAAR BOVEN"];
+    [guestUp setAlphaValue:1];
+
+    guestDown = [[CPButton alloc] initWithFrame:CGRectMake(30, 390, 200, 50)];
+    [guestDown setBackgroundColor:inactiveBlueColor];
+    [guestDown setBordered:NO];
+    [guestDown setTitle:"NAAR BENEDEN"];
+    [guestDown setAlphaValue:1];
+
+    detailedWebView = [[CPWebView alloc] initWithFrame:CGRectMake(300, 100, 500, 300)];
+    [detailedWebView setMainFrameURL:"http://rizkicalame.com/test"];
+    [detailedWebView setBackgroundColor:activeBlueColor];
+    [detailedWebView setScrollMode:CPWebViewScrollNone];
+
+    var buttonOne = [[CPButton alloc] initWithFrame: CGRectMake(30, 160, 200, 100)];
+    [buttonOne setBackgroundColor: inactiveBlueColor];
+    [buttonOne setBordered:NO];
+
+    var buttonTwo = [[CPButton alloc] initWithFrame: CGRectMake(30, 280, 200, 100)];
+    [buttonTwo setBackgroundColor: inactiveBlueColor];
+    [buttonTwo setBordered:NO];
+
+    [_fgMainWindow addSubview: detailedWebView];
+    [_fgMainWindow addSubview: buttonOne];
+    [_fgMainWindow addSubview: buttonTwo];
+    [_fgMainWindow addSubview:guestUp];
+    [_fgMainWindow addSubview:guestDown];
+
+}
+
+
+- (void) playQuiz {
+    [headerTitle setStringValue:"Speel de Quiz!"];
+    [headerTitle setTextColor:activeOrangeColor];
+    [headerTitle sizeToFit];
+
+    [_maandagButton setAlphaValue:0];
+    [_woensdagButton setAlphaValue:0];
+    [_vrijdagButton setAlphaValue:0];
+    [_mainWindow setAlphaValue:0];
+    [_fgMainWindow setAlphaValue:0];
+    [_upButton setAlphaValue:0];
+    [_bottomButton setAlphaValue:0];
+    [_fgMainWindow setAlphaValue:0];
+    [_quizMainWindow setAlphaValue:0];
+
+
+    _puppyButton = [[CPButton alloc] initWithFrame: CGRectMake(76, 200, 250, 370)];
+    [_puppyButton setBackgroundColor: activeOrangeColor];
+    [_puppyButton setAction:@selector(puppy)];
+    [_puppyButton setBordered:NO];
+
+    _labradorButton = [[CPButton alloc] initWithFrame: CGRectMake(76 + 250 + 25, 200, 250, 370)];
+    [_labradorButton setBackgroundColor: activeOrangeColor];
+    [_labradorButton setAction:@selector(labrador)];
+    [_labradorButton setBordered:NO];
+
+    _bulldogButton = [[CPButton alloc] initWithFrame: CGRectMake(76 + 250 + 25 + 250 + 25, 200, 250, 370)];
+    [_bulldogButton setBackgroundColor: activeOrangeColor];
+    [_bulldogButton setAction:@selector(bulldog)];
+    [_bulldogButton setBordered:NO];
+
+
+
+    [_baseView addSubview:_puppyButton];
+    [_baseView addSubview:_labradorButton];
+    [_baseView addSubview:_bulldogButton];
+}
+
+
+- (void) puppy {
+    [_puppyButton setAlphaValue:0];
+    [_labradorButton setAlphaValue:0];
+    [_bulldogButton setAlphaValue:0];
+
+    _quizMainWindow = [[CPView alloc] initWithFrame:CGRectMake(51, 125, 840, 575)];
+    [_quizMainWindow setBackgroundColor:activeOrangeColor];
+
+    var titleLabel = [[CPTextField alloc] initWithFrame:CGRectMake(25, 30, 170, 80)];
+    [titleLabel setFont:[CPFont fontWithName:"Helvetica" size:30.0]];
+    [titleLabel setStringValue:"Kies een aflevering"];
+    [titleLabel sizeToFit];
+    [titleLabel setTextColor: [CPColor whiteColor]];
+    [titleLabel setLineBreakMode: CPLineBreakByWordWrapping];
+
+    topleft = [[CPButton alloc] initWithFrame:CGRectMake(30, 150, 50, 130)];
+    [topleft setBackgroundColor:inactiveBlueColor];
+    [topleft setBordered:NO];
+    [topleft setTitle:"<"];
+    [topleft setAlphaValue:1];
+
+    topRight = [[CPButton alloc] initWithFrame:CGRectMake(745, 150, 50, 130)];
+    [topRight setBackgroundColor:inactiveBlueColor];
+    [topRight setBordered:NO];
+    [topRight setTitle:">"];
+    [topRight setAlphaValue:1];
+
+    bottomLeft = [[CPButton alloc] initWithFrame:CGRectMake(30, 400, 50, 130)];
+    [bottomLeft setBackgroundColor:inactiveBlueColor];
+    [bottomLeft setBordered:NO];
+    [bottomLeft setTitle:"<"];
+    [bottomLeft setAlphaValue:1];
+
+    bottomRight = [[CPButton alloc] initWithFrame:CGRectMake(745, 400, 50, 130)];
+    [bottomRight setBackgroundColor:inactiveBlueColor];
+    [bottomRight setBordered:NO];
+    [bottomRight setTitle:">"];
+    [bottomRight setAlphaValue:1];
+
+    var one = [[CPButton alloc] initWithFrame:CGRectMake(110, 150, 190, 130)];
+    [one setBackgroundColor:inactiveBlueColor];
+    [one setBordered:NO];
+    [one setTitle:"Vid 1"];
+    [one setAlphaValue:1];
+
+    var two = [[CPButton alloc] initWithFrame:CGRectMake(230 + 80, 150, 190, 130)];
+    [two setBackgroundColor:inactiveBlueColor];
+    [two setBordered:NO];
+    [two setTitle:"Vid 1"];
+    [two setAlphaValue:1];
+
+    var three = [[CPButton alloc] initWithFrame:CGRectMake(425  + 85, 150, 190, 130)];
+    [three setBackgroundColor:inactiveBlueColor];
+    [three setBordered:NO];
+    [three setTitle:"Vid 1"];
+    [three setAlphaValue:1];
+
+    var four = [[CPButton alloc] initWithFrame:CGRectMake(35  + 75, 400, 190, 130)];
+    [four setBackgroundColor:inactiveBlueColor];
+    [four setBordered:NO];
+    [four setTitle:"Vid 1"];
+    [four setAlphaValue:1];
+
+    var five = [[CPButton alloc] initWithFrame:CGRectMake(230  + 80, 400, 190, 130)];
+    [five setBackgroundColor:inactiveBlueColor];
+    [five setBordered:NO];
+    [five setTitle:"Vid 1"];
+    [five setAlphaValue:1];
+
+    var six = [[CPButton alloc] initWithFrame:CGRectMake(425  + 85, 400, 190, 130)];
+    [six setBackgroundColor:inactiveBlueColor];
+    [six setBordered:NO];
+    [six setTitle:"Vid 1"];
+    [six setAlphaValue:1];
+
+    [_baseView addSubview:_quizMainWindow];
+    [_quizMainWindow addSubview:topleft];
+    [_quizMainWindow addSubview:topRight];
+    [_quizMainWindow addSubview:bottomLeft];
+    [_quizMainWindow addSubview:bottomRight];
+    [_quizMainWindow addSubview:one];
+    [_quizMainWindow addSubview:two];
+    [_quizMainWindow addSubview:three];
+    [_quizMainWindow addSubview:four];
+    [_quizMainWindow addSubview:five];
+    [_quizMainWindow addSubview:six];
+    [_quizMainWindow addSubview:titleLabel];
+
+}
+
+
+
+
+
+
+
+
 - (void) homeFunction {
     [headerTitle setStringValue:"Te gast"];
     [headerTitle sizeToFit];
+
+    [_fgMainWindow setFrame:hideFrame];
+    [_quizMainWindow setFrame:hideFrame];
 
     [_maandagButton setAlphaValue:1];
     [_woensdagButton setAlphaValue:1];
@@ -411,6 +667,19 @@
     [_findGuest setAlphaValue:0];
     [_searchSub setAlphaValue:0];
     [_searchDate setAlphaValue:0];
+    [_puppyButton setAlphaValue:0];
+    [_labradorButton setAlphaValue:0];
+    [_bulldogButton setAlphaValue:0];
+
+
+    [_fgMainWindow setAlphaValue:0];
+    [_upButton setAlphaValue:0];
+    [_bottomButton setAlphaValue:0];
+    [_quizMainWindow setAlphaValue:0];
+
+    [_maandagButton setAction:@selector(maandagFunction)];
+    [_woensdagButton setAction:@selector(woensdagFunction)];
+    [_vrijdagButton setAction:@selector(vrijdagFunction)];
 }
 
 
