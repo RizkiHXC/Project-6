@@ -1,4 +1,4 @@
-/*
+ /*
  * AppController.j
  * NewApplication
  *
@@ -123,7 +123,7 @@
     [_quitButton setImage:homeImage];
     [_quitButton setAction:@selector(homeFunction)];
 
-    _maandagButton = [[CPButton alloc] initWithFrame: CGRectMake(51 + 25, 125 + 450, 250, 125)];
+    _maandagButton = [[CPButton alloc] initWithFrame: CGRectMake(51 + 25, 120 + 450, 250, 125)];
     [_maandagButton setTarget:self];
     [_maandagButton setAction:@selector(maandagFunction)];
     [_maandagButton setBordered:NO];
@@ -133,7 +133,7 @@
     [_maandagButton setTextColor:[CPColor grayColor]];
     [_maandagButton setFont:[CPFont fontWithName:"Helvetica" size: 26.0]];
 
-    _woensdagButton = [[CPButton alloc] initWithFrame: CGRectMake(51 + 25 + 250 + 25, 125 + 450, 250, 125)];
+    _woensdagButton = [[CPButton alloc] initWithFrame: CGRectMake(51 + 25 + 250 + 25, 120 + 450, 250, 125)];
     [_woensdagButton setTarget:self];
     [_woensdagButton setAction:@selector(woensdagFunction)];
     [_woensdagButton setBordered:NO];
@@ -142,7 +142,7 @@
     [_woensdagButton setTextColor:[CPColor whiteColor]];
     [_woensdagButton setFont:[CPFont fontWithName:"Helvetica" size: 26.0]];
 
-    _vrijdagButton = [[CPButton alloc] initWithFrame: CGRectMake(51 + 25 + 250 + 250 + 25 + 25, 125 + 450, 250, 125)];
+    _vrijdagButton = [[CPButton alloc] initWithFrame: CGRectMake(51 + 25 + 250 + 250 + 25 + 25, 120 + 450, 250, 125)];
     [_vrijdagButton setTarget:self];
     [_vrijdagButton setAction:@selector(vrijdagFunction)];
     [_vrijdagButton setBackgroundColor:[CPColor colorWithCalibratedRed:158.0/255.0 green:243.0/255.0 blue:248.0/255.0 alpha:1.0]];
@@ -258,12 +258,25 @@
     // [animator setDuration:10];
     // [animator startAnimation];
 
+
+    [self setCornerRadius:10.0 ofView:_mainWindow];
+    [self setCornerRadius:10.0 ofButton:_maandagButton];
+    [self setCornerRadius:10.0 ofButton:_woensdagButton];
+    [self setCornerRadius:10.0 ofButton:_vrijdagButton];
+    [self setCornerRadius:10.0 ofButton:_watchShow];
+    [self setCornerRadius:10.0 ofButton:_playQuiz];
+    [self setCornerRadius:10.0 ofButton:_sendWork];
+    [self setCornerRadius:10.0 ofButton:_askQuestion];
+
     // Dafuq is this
     [theWindow orderFront:self];
 
 
     // Addsubviews
     [contentView addSubview: _baseView];
+    [_baseView addSubview:_maandagButton];
+    [_baseView addSubview:_woensdagButton];
+    [_baseView addSubview:_vrijdagButton];
     [_baseView addSubview:_mainWindow];
     [_baseView addSubview: _bottomButton];
     [_baseView addSubview: _upButton];
@@ -274,9 +287,6 @@
     [_mainWindow addSubview: dayAnnouncement];
     [_mainWindow addSubview: videoTitle];
     [_baseView addSubview:headerTitle];
-    [_baseView addSubview:_maandagButton];
-    [_baseView addSubview:_woensdagButton];
-    [_baseView addSubview:_vrijdagButton];
     [_baseView addSubview:_quitButton];
     [_baseView addSubview: _askQuestion];
     [_baseView addSubview: _sendWork];
@@ -381,6 +391,10 @@
     [_searchDate setAction:@selector(searchDate)];
     [_searchDate setBordered:NO];
 
+    [self setCornerRadius:10.0 ofButton:_findGuest];
+    [self setCornerRadius:10.0 ofButton:_searchSub];
+    [self setCornerRadius:10.0 ofButton:_searchDate];
+
 
     //Images
     var guestIm = [[CPImage alloc] initWithContentsOfFile:"Resources/ico_guest.png" size:CPSizeMake(220, 220)];
@@ -450,9 +464,9 @@
     [titleLabel setTextColor: [CPColor whiteColor]];
     [titleLabel setLineBreakMode: CPLineBreakByWordWrapping];
 
-    var guest1 = [[CPImage alloc] initWithContentsOfFile:"Resources/ico_guest.png" size:CPSizeMake(150, 150)];
-    var guest2 = [[CPImage alloc] initWithContentsOfFile:"Resources/ico_sub.png" size:CPSizeMake(150, 150)];
-    var guest3 = [[CPImage alloc] initWithContentsOfFile:"Resources/ico_date.png" size:CPSizeMake(150, 150)];
+    var guest1 = [[CPImage alloc] initWithContentsOfFile:"Resources/gast01.png" size:CPSizeMake(150, 150)];
+    var guest2 = [[CPImage alloc] initWithContentsOfFile:"Resources/gast02.png" size:CPSizeMake(150, 150)];
+    var guest3 = [[CPImage alloc] initWithContentsOfFile:"Resources/gast03.png" size:CPSizeMake(150, 150)];
 
     guest1IV = [[CPButton alloc] initWithFrame:CGRectMake(25, 80, 150, 150)];
     [guest1IV setImage:guest1];
@@ -465,7 +479,7 @@
     [guest3IV setImage:guest3];
     [guest3IV setBordered: NO];
 
-
+    [self setCornerRadius:10.0 ofButton:_fgMainWindow];
 
     [_baseView addSubview:_fgMainWindow]
     [_fgMainWindow addSubview: titleLabel];
@@ -534,18 +548,23 @@
     [_puppyButton setBackgroundColor: activeOrangeColor];
     [_puppyButton setAction:@selector(puppy)];
     [_puppyButton setBordered:NO];
+    [_puppyButton setTitle:"1 Ster"];
 
     _labradorButton = [[CPButton alloc] initWithFrame: CGRectMake(76 + 250 + 25, 200, 250, 370)];
     [_labradorButton setBackgroundColor: activeOrangeColor];
     [_labradorButton setAction:@selector(labrador)];
     [_labradorButton setBordered:NO];
+    [_labradorButton setTitle:"2 Sterren"];
 
     _bulldogButton = [[CPButton alloc] initWithFrame: CGRectMake(76 + 250 + 25 + 250 + 25, 200, 250, 370)];
     [_bulldogButton setBackgroundColor: activeOrangeColor];
     [_bulldogButton setAction:@selector(bulldog)];
     [_bulldogButton setBordered:NO];
+    [_bulldogButton setTitle:"3 Sterren"];
 
-
+    [self setCornerRadius:10.0 ofButton:_puppyButton];
+    [self setCornerRadius:10.0 ofButton:_labradorButton];
+    [self setCornerRadius:10.0 ofButton:_bulldogButton];
 
     [_baseView addSubview:_puppyButton];
     [_baseView addSubview:_labradorButton];
@@ -643,13 +662,6 @@
 
 }
 
-
-
-
-
-
-
-
 - (void) homeFunction {
     [headerTitle setStringValue:"Te gast"];
     [headerTitle sizeToFit];
@@ -682,5 +694,19 @@
     [_vrijdagButton setAction:@selector(vrijdagFunction)];
 }
 
+- (void)setCornerRadius:(CPNumber)radius ofView:(CPView)view{
+    radius = (radius != null) ? radius : 0;
+    view._DOMElement.style.setProperty('border-radius', radius+'px', null);
+    view._DOMElement.style.setProperty('-moz-border-radius', radius+'px', null);
+    view._DOMElement.style.setProperty('-webkit-border-radius', radius+'px', null);
+    view._DOMElement.style.setProperty('border-radius', radius+'px', null);
+}
 
+- (void)setCornerRadius:(CPNumber)radius ofButton:(CPButton)button{
+    radius = (radius != null) ? radius : 0;
+    button._DOMElement.style.setProperty('border-radius', radius+'px', null);
+    button._DOMElement.style.setProperty('-moz-border-radius', radius+'px', null);
+    button._DOMElement.style.setProperty('-webkit-border-radius', radius+'px', null);
+    button._DOMElement.style.setProperty('border-radius', radius+'px', null);
+}
 @end
