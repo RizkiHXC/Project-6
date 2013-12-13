@@ -543,32 +543,70 @@
     [_fgMainWindow setAlphaValue:0];
     [_quizMainWindow setAlphaValue:0];
 
+    var oneStarImage = [[CPImage alloc] initWithContentsOfFile:"Resources/ico_ster1.png" size:CGSizeMake(200,150)];
+    var oneStar = [[CPImageView alloc] initWithFrame:CGRectMake(20, 100, 200, 150)];
+    [oneStar setImage:oneStarImage];
+
+    var twoStarImage = [[CPImage alloc] initWithContentsOfFile:"Resources/ico_ster2.png" size:CGSizeMake(200,150)];
+    var twoStar = [[CPImageView alloc] initWithFrame:CGRectMake(20, 100, 200, 150)];
+    [twoStar setImage:twoStarImage];
+
+    var threeStarImage = [[CPImage alloc] initWithContentsOfFile:"Resources/ico_ster3.png" size:CGSizeMake(200,150)];
+    var threeStar = [[CPImageView alloc] initWithFrame:CGRectMake(20, 100, 200, 150)];
+    [threeStar setImage:threeStarImage];
+
+    var puppyLabel = [[CPTextField alloc] initWithFrame:CGRectMake(50, 300, 170, 80)];
+    [puppyLabel setFont:[CPFont fontWithName:"Helvetica" size:30.0]];
+    [puppyLabel setStringValue:"4 t/m 6 jaar"];
+    [puppyLabel sizeToFit];
+    [puppyLabel setTextColor: [CPColor whiteColor]];
+    [puppyLabel setLineBreakMode: CPLineBreakByWordWrapping];
+
+    var labradorLabel = [[CPTextField alloc] initWithFrame:CGRectMake(40, 300, 170, 80)];
+    [labradorLabel setFont:[CPFont fontWithName:"Helvetica" size:30.0]];
+    [labradorLabel setStringValue:"6 t/m 12 jaar"];
+    [labradorLabel sizeToFit];
+    [labradorLabel setTextColor: [CPColor whiteColor]];
+    [labradorLabel setLineBreakMode: CPLineBreakByWordWrapping];
+
+    var bulldogLabel = [[CPTextField alloc] initWithFrame:CGRectMake(35, 300, 170, 80)];
+    [bulldogLabel setFont:[CPFont fontWithName:"Helvetica" size:30.0]];
+    [bulldogLabel setStringValue:"12 t/m 18 jaar"];
+    [bulldogLabel sizeToFit];
+    [bulldogLabel setTextColor: [CPColor whiteColor]];
+    [bulldogLabel setLineBreakMode: CPLineBreakByWordWrapping];
+
+
 
     _puppyButton = [[CPButton alloc] initWithFrame: CGRectMake(76, 200, 250, 370)];
     [_puppyButton setBackgroundColor: activeOrangeColor];
     [_puppyButton setAction:@selector(puppy)];
     [_puppyButton setBordered:NO];
-    [_puppyButton setTitle:"1 Ster"];
 
     _labradorButton = [[CPButton alloc] initWithFrame: CGRectMake(76 + 250 + 25, 200, 250, 370)];
     [_labradorButton setBackgroundColor: activeOrangeColor];
     [_labradorButton setAction:@selector(labrador)];
     [_labradorButton setBordered:NO];
-    [_labradorButton setTitle:"2 Sterren"];
 
     _bulldogButton = [[CPButton alloc] initWithFrame: CGRectMake(76 + 250 + 25 + 250 + 25, 200, 250, 370)];
     [_bulldogButton setBackgroundColor: activeOrangeColor];
     [_bulldogButton setAction:@selector(bulldog)];
     [_bulldogButton setBordered:NO];
-    [_bulldogButton setTitle:"3 Sterren"];
 
     [self setCornerRadius:10.0 ofButton:_puppyButton];
     [self setCornerRadius:10.0 ofButton:_labradorButton];
     [self setCornerRadius:10.0 ofButton:_bulldogButton];
 
+    [_puppyButton addSubview:oneStar];
+    [_labradorButton addSubview:twoStar];
+    [_bulldogButton addSubview:threeStar];
     [_baseView addSubview:_puppyButton];
     [_baseView addSubview:_labradorButton];
     [_baseView addSubview:_bulldogButton];
+
+    [_puppyButton addSubview: puppyLabel];
+    [_labradorButton addSubview: labradorLabel];
+    [_bulldogButton addSubview: bulldogLabel];
 }
 
 
@@ -578,7 +616,9 @@
     [_bulldogButton setAlphaValue:0];
 
     _quizMainWindow = [[CPView alloc] initWithFrame:CGRectMake(51, 125, 840, 575)];
-    [_quizMainWindow setBackgroundColor:activeOrangeColor];
+    [_quizMainWindow setBackgroundColor:[CPColor clearColor]];
+    [self setCornerRadius: 10.0 ofView:_quizMainWindow]
+
 
     var titleLabel = [[CPTextField alloc] initWithFrame:CGRectMake(25, 30, 170, 80)];
     [titleLabel setFont:[CPFont fontWithName:"Helvetica" size:30.0]];
