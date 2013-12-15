@@ -43,12 +43,14 @@
 
     //FINDGUEST
     CPView _fgMainWindow;
+    CPView _fg2MainWindow;
     CPView _catMainWindow;
     CPButton _upButton, _bottomButton, guest1IV, guest2IV, guest3IV, guestUp, guestDown;
     CPTextField titleLabel;
 
     //PLAYQUIZ
     CPView _quizMainWindow;
+    CPView _quiz2MainWindow;
     CPButton _puppyButton, _labradorButton, _bulldogButton;
 
     //ACTUALLY PLAY QUIZ LOL
@@ -80,13 +82,13 @@
 
     introText = [[CPTextField alloc] initWithFrame:CGRectMake(25, 25, 250, 100)];
     [introText setFont:[CPFont fontWithName:"Helvetica-Bold" size: 12.0]];
-    [introText setStringValue:"Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan  Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan"];
+    [introText setStringValue:"Een kerstviering in 4 vwo zorgt ervoor dat Nick Schilder en Simon Keizer voor het eerst samen zingen. Het is meteen  duidelijk: dat smaakt naar meer.   "];
     [introText setTextColor:[CPColor whiteColor]];
     [introText setLineBreakMode: CPLineBreakByCharWrapping];
 
-    descriptionText = [[CPTextField alloc] initWithFrame:CGRectMake(25, 150, 250, 300)];
+    descriptionText = [[CPTextField alloc] initWithFrame:CGRectMake(25, 100, 250, 300)];
     [descriptionText setFont:[CPFont fontWithName:"Helvetica" size: 12.0]];
-    [descriptionText setStringValue:"Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan naan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem Banaan Lorem "];
+    [descriptionText setStringValue:"Gewapend met Engelstalige covers van onder meer Simon & Garfunkel krijgt het zangduo steeds meer bekendheid in en rond Volendam. Simon schrijft hiernaast nummers met en voor Jan Smit. Als ‘vrienden van’ komen Nick & Simon regelmatig aan bod in de realitysoap Gewoon Jan Smit. Topmanager Jaap Buijs pikt de zangers op en brengt ze in contact met  platenmaatschappij Artist & Company."];
     [descriptionText setTextColor:[CPColor whiteColor]];
     [descriptionText setLineBreakMode: CPLineBreakByWordWrapping];
 
@@ -376,24 +378,28 @@
     [_vrijdagButton setAlphaValue:0];
     [_mainWindow setAlphaValue:0];
     [_fgMainWindow setAlphaValue:0];
+    [_quiz2MainWindow setFrame:hideFrame];
     [_upButton setAlphaValue:0];
     [_bottomButton setAlphaValue:0];
     [_quizMainWindow setAlphaValue:0];
 
+    _fg2MainWindow = [[CPView alloc] initWithFrame:CGRectMake(51, 125, 840, 575)];
+    [_fg2MainWindow setBackgroundColor:[CPColor clearColor]];
+
     _upButton = [[CPButton alloc] initWithFrame:CGRectMake(300, 720, 200, 50)];
     _bottomButton = [[CPButton alloc] initWithFrame:CGRectMake(525, 720, 200, 50)];
 
-    _findGuest = [[CPButton alloc] initWithFrame: CGRectMake(76, 200, 250, 370)];
+    _findGuest = [[CPButton alloc] initWithFrame: CGRectMake(20, 50, 250, 370)];
     [_findGuest setBackgroundColor: activeBlueColor];
     [_findGuest setAction:@selector(findGuest)];
     [_findGuest setBordered:NO];
 
-    _searchSub = [[CPButton alloc] initWithFrame: CGRectMake(76 + 250 + 25, 200, 250, 370)];
+    _searchSub = [[CPButton alloc] initWithFrame: CGRectMake(20 + 250 + 25, 50, 250, 370)];
     [_searchSub setBackgroundColor: activeBlueColor];
     [_searchSub setAction:@selector(searchSub)];
     [_searchSub setBordered:NO];
 
-    _searchDate = [[CPButton alloc] initWithFrame: CGRectMake(76 + 250 + 25 + 250 + 25, 200, 250, 370)];
+    _searchDate = [[CPButton alloc] initWithFrame: CGRectMake(20 + 250 + 25 + 250 + 25, 50, 250, 370)];
     [_searchDate setBackgroundColor: activeBlueColor];
     [_searchDate setAction:@selector(searchDate)];
     [_searchDate setBordered:NO];
@@ -440,10 +446,10 @@
 
 
 
-
-    [_baseView addSubview:_findGuest];
-    [_baseView addSubview:_searchSub];
-    [_baseView addSubview:_searchDate];
+    [_baseView addSubview: _fg2MainWindow];
+    [_fg2MainWindow addSubview:_findGuest];
+    [_fg2MainWindow addSubview:_searchSub];
+    [_fg2MainWindow addSubview:_searchDate];
     [_findGuest addSubview:icongGuestIm];
     [_findGuest addSubview:guestLabel];
     [_searchSub addSubview:iconSubIm];
@@ -454,9 +460,7 @@
 
 -(void) findGuest
 {
-    [_findGuest setAlphaValue: 0];
-    [_searchSub setAlphaValue: 0];
-    [_searchDate setAlphaValue: 0];
+    [_fg2MainWindow setFrame:hideFrame];
     [_upButton setAlphaValue: 1];
     [_bottomButton setAlphaValue: 1];
 
@@ -500,9 +504,7 @@
     [guest1IV setFrame:hideFrame];
     [guest2IV setFrame:hideFrame];
     [guest3IV setFrame:hideFrame];
-    [_puppyButton setFrame:hideFrame];
-    [_labradorButton setFrame:hideFrame];
-    [_bulldogButton setFrame:hideFrame];
+    [_quiz2MainWindow setFrame:hideFrame];
 
 
     [_fgMainWindow setBackgroundColor:[CPColor clearColor]];
@@ -572,7 +574,13 @@
     [_upButton setAlphaValue:0];
     [_bottomButton setAlphaValue:0];
     [_fgMainWindow setAlphaValue:0];
+    [_fg2MainWindow setFrame:hideFrame];
+    [_catMainWindow setFrame:hideFrame];
     [_quizMainWindow setAlphaValue:0];
+
+
+    _quiz2MainWindow = [[CPView alloc] initWithFrame:CGRectMake(51, 125, 840, 575)];
+    [_quiz2MainWindow setBackgroundColor:[CPColor clearColor]];
 
     var oneStarImage = [[CPImage alloc] initWithContentsOfFile:"Resources/ico_ster1.png" size:CGSizeMake(200,150)];
     var oneStar = [[CPImageView alloc] initWithFrame:CGRectMake(20, 100, 200, 150)];
@@ -607,17 +615,17 @@
     [bulldogLabel setTextColor: [CPColor whiteColor]];
     [bulldogLabel setLineBreakMode: CPLineBreakByWordWrapping];
 
-    _puppyButton = [[CPButton alloc] initWithFrame: CGRectMake(76, 200, 250, 370)];
+    _puppyButton = [[CPButton alloc] initWithFrame: CGRectMake(20, 50, 250, 370)];
     [_puppyButton setBackgroundColor: activeOrangeColor];
     [_puppyButton setAction:@selector(puppy)];
     [_puppyButton setBordered:NO];
 
-    _labradorButton = [[CPButton alloc] initWithFrame: CGRectMake(76 + 250 + 25, 200, 250, 370)];
+    _labradorButton = [[CPButton alloc] initWithFrame: CGRectMake(20 + 250 + 25, 50, 250, 370)];
     [_labradorButton setBackgroundColor: activeOrangeColor];
     [_labradorButton setAction:@selector(labrador)];
     [_labradorButton setBordered:NO];
 
-    _bulldogButton = [[CPButton alloc] initWithFrame: CGRectMake(76 + 250 + 25 + 250 + 25, 200, 250, 370)];
+    _bulldogButton = [[CPButton alloc] initWithFrame: CGRectMake(20 + 250 + 25 + 250 + 25, 50, 250, 370)];
     [_bulldogButton setBackgroundColor: activeOrangeColor];
     [_bulldogButton setAction:@selector(bulldog)];
     [_bulldogButton setBordered:NO];
@@ -626,13 +634,13 @@
     [self setCornerRadius:10.0 ofButton:_labradorButton];
     [self setCornerRadius:10.0 ofButton:_bulldogButton];
 
+    [_baseView addSubview:_quiz2MainWindow];
+    [_quiz2MainWindow addSubview:_puppyButton];
+    [_quiz2MainWindow addSubview:_labradorButton];
+    [_quiz2MainWindow addSubview:_bulldogButton];
     [_puppyButton addSubview:oneStar];
     [_labradorButton addSubview:twoStar];
     [_bulldogButton addSubview:threeStar];
-    [_baseView addSubview:_puppyButton];
-    [_baseView addSubview:_labradorButton];
-    [_baseView addSubview:_bulldogButton];
-
     [_puppyButton addSubview: puppyLabel];
     [_labradorButton addSubview: labradorLabel];
     [_bulldogButton addSubview: bulldogLabel];
@@ -640,21 +648,33 @@
 
 
 - (void) puppy {
-    [_puppyButton setAlphaValue:0];
-    [_labradorButton setAlphaValue:0];
-    [_bulldogButton setAlphaValue:0];
+    [_quiz2MainWindow setFrame:hideFrame];
 
     _quizMainWindow = [[CPView alloc] initWithFrame:CGRectMake(51, 125, 840, 575)];
     [_quizMainWindow setBackgroundColor:[CPColor clearColor]];
     [self setCornerRadius: 10.0 ofView:_quizMainWindow]
 
 
-    var titleLabel = [[CPTextField alloc] initWithFrame:CGRectMake(25, 30, 170, 80)];
-    [titleLabel setFont:[CPFont fontWithName:"Helvetica" size:30.0]];
+    var titleLabel = [[CPTextField alloc] initWithFrame:CGRectMake(110, 30, 170, 80)];
+    [titleLabel setFont:[CPFont fontWithName:"Helvetica" size:40.0]];
     [titleLabel setStringValue:"Kies een aflevering"];
     [titleLabel sizeToFit];
     [titleLabel setTextColor: [CPColor darkGrayColor]];
     [titleLabel setLineBreakMode: CPLineBreakByWordWrapping];
+
+    var newLabel = [[CPTextField alloc] initWithFrame:CGRectMake(110, 115, 170, 80)];
+    [newLabel setFont:[CPFont fontWithName:"Helvetica" size:30.0]];
+    [newLabel setStringValue:"Nieuwste afleveringen"];
+    [newLabel sizeToFit];
+    [newLabel setTextColor:activeOrangeColor];
+    [newLabel setLineBreakMode: CPLineBreakByWordWrapping];
+
+    var latestLabel = [[CPTextField alloc] initWithFrame:CGRectMake(110, 315, 170, 80)];
+    [latestLabel setFont:[CPFont fontWithName:"Helvetica" size:30.0]];
+    [latestLabel setStringValue:"Laatste afleveringen"];
+    [latestLabel sizeToFit];
+    [latestLabel setTextColor:activeOrangeColor];
+    [latestLabel setLineBreakMode: CPLineBreakByWordWrapping];
 
     topleft = [[CPButton alloc] initWithFrame:CGRectMake(30, 150, 50, 130)];
     [topleft setBackgroundColor:[CPColor colorWithCalibratedRed:255.0/255.0 green:162.0/255.0 blue:0.0/255.0 alpha:1.0]];
@@ -668,13 +688,13 @@
     [topRight setTitle:">"];
     [topRight setAlphaValue:1];
 
-    bottomLeft = [[CPButton alloc] initWithFrame:CGRectMake(30, 400, 50, 130)];
+    bottomLeft = [[CPButton alloc] initWithFrame:CGRectMake(30, 350, 50, 130)];
     [bottomLeft setBackgroundColor:[CPColor colorWithCalibratedRed:255.0/255.0 green:162.0/255.0 blue:0.0/255.0 alpha:1.0]];
     [bottomLeft setBordered:NO];
     [bottomLeft setTitle:"<"];
     [bottomLeft setAlphaValue:1];
 
-    bottomRight = [[CPButton alloc] initWithFrame:CGRectMake(740, 400, 50, 130)];
+    bottomRight = [[CPButton alloc] initWithFrame:CGRectMake(740, 350, 50, 130)];
     [bottomRight setBackgroundColor:[CPColor colorWithCalibratedRed:255.0/255.0 green:162.0/255.0 blue:0.0/255.0 alpha:1.0]];
     [bottomRight setBordered:NO];
     [bottomRight setTitle:">"];
@@ -685,41 +705,50 @@
     [self setCornerRadius: 10.0 ofButton:bottomLeft];
     [self setCornerRadius: 10.0 ofButton:bottomRight];
 
+    var oneImage = [[CPImage alloc] initWithContentsOfFile:"Resources/q1.png" size:CGSizeMake(200,152)];
+    var twoImage = [[CPImage alloc] initWithContentsOfFile:"Resources/q2.png" size:CGSizeMake(200,152)];
+
+
     var one = [[CPButton alloc] initWithFrame:CGRectMake(110, 150, 190, 130)];
-    [one setBackgroundColor:inactiveBlueColor];
+    [one setBackgroundColor:[CPColor clearColor]];
     [one setBordered:NO];
-    [one setTitle:"Vid 1"];
     [one setAlphaValue:1];
+    [one setImage:oneImage];
 
     var two = [[CPButton alloc] initWithFrame:CGRectMake(230 + 80, 150, 190, 130)];
-    [two setBackgroundColor:inactiveBlueColor];
+    [two setBackgroundColor:[CPColor clearColor]];
     [two setBordered:NO];
     [two setTitle:"Vid 1"];
     [two setAlphaValue:1];
+    [two setImage:twoImage];
 
     var three = [[CPButton alloc] initWithFrame:CGRectMake(425  + 85, 150, 190, 130)];
-    [three setBackgroundColor:inactiveBlueColor];
+    [three setBackgroundColor:[CPColor clearColor]];
     [three setBordered:NO];
     [three setTitle:"Vid 1"];
     [three setAlphaValue:1];
+    [three setImage:oneImage];
 
-    var four = [[CPButton alloc] initWithFrame:CGRectMake(35  + 75, 400, 190, 130)];
-    [four setBackgroundColor:inactiveBlueColor];
+    var four = [[CPButton alloc] initWithFrame:CGRectMake(35  + 75, 350, 190, 130)];
+    [four setBackgroundColor:[CPColor clearColor]];
     [four setBordered:NO];
     [four setTitle:"Vid 1"];
     [four setAlphaValue:1];
+    [four setImage:twoImage];
 
-    var five = [[CPButton alloc] initWithFrame:CGRectMake(230  + 80, 400, 190, 130)];
-    [five setBackgroundColor:inactiveBlueColor];
+    var five = [[CPButton alloc] initWithFrame:CGRectMake(230  + 80, 350, 190, 130)];
+    [five setBackgroundColor:[CPColor clearColor]];
     [five setBordered:NO];
     [five setTitle:"Vid 1"];
     [five setAlphaValue:1];
+    [five setImage:oneImage];
 
-    var six = [[CPButton alloc] initWithFrame:CGRectMake(425  + 85, 400, 190, 130)];
-    [six setBackgroundColor:inactiveBlueColor];
+    var six = [[CPButton alloc] initWithFrame:CGRectMake(425  + 85, 350, 190, 130)];
+    [six setBackgroundColor:[CPColor clearColor]];
     [six setBordered:NO];
     [six setTitle:"Vid 1"];
     [six setAlphaValue:1];
+    [six setImage:twoImage];
 
     [_baseView addSubview:_quizMainWindow];
     [_quizMainWindow addSubview:topleft];
@@ -733,6 +762,8 @@
     [_quizMainWindow addSubview:five];
     [_quizMainWindow addSubview:six];
     [_quizMainWindow addSubview:titleLabel];
+    [_quizMainWindow addSubview:newLabel];
+    [_quizMainWindow addSubview:latestLabel];
 
 }
 
@@ -741,7 +772,10 @@
     [headerTitle sizeToFit];
 
     [_fgMainWindow setFrame:hideFrame];
+    [_fg2MainWindow setFrame:hideFrame];
     [_quizMainWindow setFrame:hideFrame];
+    [_quiz2MainWindow setFrame:hideFrame];
+    [_catMainWindow setFrame:hideFrame];
 
     [_maandagButton setAlphaValue:1];
     [_woensdagButton setAlphaValue:1];
@@ -750,14 +784,6 @@
 
 
     //To set nil
-    [_findGuest setAlphaValue:0];
-    [_searchSub setAlphaValue:0];
-    [_searchDate setAlphaValue:0];
-    [_puppyButton setAlphaValue:0];
-    [_labradorButton setAlphaValue:0];
-    [_bulldogButton setAlphaValue:0];
-
-
     [_fgMainWindow setAlphaValue:0];
     [_upButton setAlphaValue:0];
     [_bottomButton setAlphaValue:0];
@@ -769,14 +795,79 @@
 }
 
 - (void) searchSub {
-    [_findGuest setAlphaValue: 0];
-    [_searchSub setAlphaValue: 0];
-    [_searchDate setAlphaValue: 0];
+    [_fg2MainWindow setFrame:hideFrame];
     [_upButton setAlphaValue: 1];
     [_bottomButton setAlphaValue: 1];
 
     _catMainWindow = [[CPView alloc] initWithFrame:CGRectMake(51, 125, 840, 575)];
     [_catMainWindow setBackgroundColor:[CPColor clearColor]];
+
+    var textLabel = [[CPTextField alloc] initWithFrame:CGRectMake(25, 0, 0, 0)];
+    [textLabel setStringValue:"Kies een genre"];
+    [textLabel setFont:[CPFont fontWithName:"Helvetica" size:30.0]];
+    [textLabel setTextColor:[CPColor darkGrayColor]];
+    [textLabel sizeToFit];
+
+    var muziekButton = [[CPButton alloc] initWithFrame:CGRectMake(50, 50, 170, 170)];
+    [muziekButton setBackgroundColor:activeBlueColor];
+    [muziekButton setTitle:"Muziek"];
+    [muziekButton setBordered:NO];
+    [self setCornerRadius:10.0 ofButton:muziekButton];
+
+    var sportButton = [[CPButton alloc] initWithFrame:CGRectMake(50 + 170 + 20, 50, 170, 170)];
+    [sportButton setBackgroundColor:activeBlueColor];
+    [sportButton setTitle:"Sport"];
+    [sportButton setBordered:NO];
+    [self setCornerRadius:10.0 ofButton:sportButton];
+
+
+    var weerButton = [[CPButton alloc] initWithFrame:CGRectMake(50 + 170 + 20 + 170 + 20, 50, 170, 170)];
+    [weerButton setBackgroundColor:activeBlueColor];
+    [weerButton setTitle:"Weer"];
+    [weerButton setBordered:NO];
+    [self setCornerRadius:10.0 ofButton:weerButton];
+
+    var hobbiesButton = [[CPButton alloc] initWithFrame:CGRectMake(50 + 170 + 20 + 170 + 20 + 170 + 20, 50, 170, 170)];
+    [hobbiesButton setBackgroundColor:activeBlueColor];
+    [hobbiesButton setTitle:"Hobbies"];
+    [hobbiesButton setBordered:NO];
+    [self setCornerRadius:10.0 ofButton:hobbiesButton];
+
+    var natuurButton = [[CPButton alloc] initWithFrame:CGRectMake(50, 250, 170, 170)];
+    [natuurButton setBackgroundColor:activeBlueColor];
+    [natuurButton setTitle:"Natuur"];
+    [natuurButton setBordered:NO];
+    [self setCornerRadius:10.0 ofButton:natuurButton];
+
+    var nieuwsButton = [[CPButton alloc] initWithFrame:CGRectMake(50 + 170 + 20, 250, 170, 170)];
+    [nieuwsButton setBackgroundColor:activeBlueColor];
+    [nieuwsButton setTitle:"Nieuws"];
+    [nieuwsButton setBordered:NO];
+    [self setCornerRadius:10.0 ofButton:nieuwsButton];
+
+    var filmButton = [[CPButton alloc] initWithFrame:CGRectMake(50 + 170 + 20 + 170 + 20, 250, 170, 170)];
+    [filmButton setBackgroundColor:activeBlueColor];
+    [filmButton setTitle:"Film"];
+    [filmButton setBordered:NO];
+    [self setCornerRadius:10.0 ofButton:filmButton];
+
+    var gameButton = [[CPButton alloc] initWithFrame:CGRectMake(50 + 170 + 20 + 170 + 20 + 170 + 20, 250, 170, 170)];
+    [gameButton setBackgroundColor:activeBlueColor];
+    [gameButton setTitle:"Games"];
+    [gameButton setBordered:NO];
+    [self setCornerRadius:10.0 ofButton:gameButton];
+
+    [_baseView addSubview:_catMainWindow];
+    [_catMainWindow addSubview:textLabel];
+    [_catMainWindow addSubview:muziekButton];
+    [_catMainWindow addSubview:sportButton];
+    [_catMainWindow addSubview:weerButton];
+    [_catMainWindow addSubview:hobbiesButton];
+    [_catMainWindow addSubview:natuurButton];
+    [_catMainWindow addSubview:nieuwsButton];
+    [_catMainWindow addSubview:filmButton];
+    [_catMainWindow addSubview:gameButton];
+
 
 }
 
