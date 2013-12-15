@@ -14,6 +14,7 @@
 @implementation AppController : CPObject
 {
     CGRect hideFrame;
+    CGRect backFrame;
     CPColor inactiveBlueColor, activeBlueColor, activeOrangeColor;
 
     //Text
@@ -26,6 +27,7 @@
     CPButton _woensdagButton;
     CPButton _vrijdagButton;
     CPButton _quitButton;
+    CPButton _backButton;
     CPTextField _label;
     CPView _baseView;
     CPView _mainWindow;
@@ -55,15 +57,21 @@
 
     //ACTUALLY PLAY QUIZ LOL
     CPButton topleft, topRight, bottomLeft, bottomRight;
+
+    CPMutableArray vcArray;
+
 }
 
 - (void)applicationDidFinishLaunching:(CPNotification)aNotification
 {
     hideFrame = CGRectMake(0,0,0,0);
+    backFrame = CGRectMake(80, 710, 80, 80);
 
     inactiveBlueColor = [CPColor colorWithCalibratedRed:158.0/255.0 green:243.0/255.0 blue:248.0/255.0 alpha:1.0];
     activeBlueColor = [CPColor colorWithCalibratedRed:73.0/255.0 green:187.0/255.0 blue:218.0/255.0 alpha:1.0];
     activeOrangeColor = [CPColor colorWithCalibratedRed:255.0/255.0 green:162.0/255.0 blue:0/255.0 alpha:1.0];
+
+    vcArray = [[CPMutableArray alloc] init];
 
     var theWindow = [[CPWindow alloc] initWithContentRect:CGRectMakeZero() styleMask:CPBorderlessBridgeWindowMask],
         contentView = [theWindow contentView];
@@ -120,6 +128,7 @@
     var askImage = [[CPImage alloc] initWithContentsOfFile:"Resources/ico_cloud.png" size:CPSizeMake(130, 130)];
 
     var homeImage = [[CPImage alloc] initWithContentsOfFile:"Resources/ico_home.png" size:CPSizeMake(80, 80)];
+    var backImage = [[CPImage alloc] initWithContentsOfFile:"Resources/ico_back.png" size:CPSizeMake(80, 80)];
 
     //Bottom Menu
     _quitButton = [[CPButton alloc] initWithFrame:CGRectMake(0, 710, 80, 80)];
@@ -127,7 +136,7 @@
     [_quitButton setImage:homeImage];
     [_quitButton setAction:@selector(homeFunction)];
 
-    _maandagButton = [[CPButton alloc] initWithFrame: CGRectMake(51 + 25, 120 + 450, 250, 125)];
+    _maandagButton = [[CPButton alloc] initWithFrame: CGRectMake(51 + 25, 115 + 450, 250, 125)];
     [_maandagButton setTarget:self];
     [_maandagButton setAction:@selector(maandagFunction)];
     [_maandagButton setBordered:NO];
@@ -137,7 +146,7 @@
     [_maandagButton setTextColor:[CPColor grayColor]];
     [_maandagButton setFont:[CPFont fontWithName:"Helvetica" size: 26.0]];
 
-    _woensdagButton = [[CPButton alloc] initWithFrame: CGRectMake(51 + 25 + 250 + 25, 120 + 450, 250, 125)];
+    _woensdagButton = [[CPButton alloc] initWithFrame: CGRectMake(51 + 25 + 250 + 25, 115 + 450, 250, 125)];
     [_woensdagButton setTarget:self];
     [_woensdagButton setAction:@selector(woensdagFunction)];
     [_woensdagButton setBordered:NO];
@@ -146,7 +155,7 @@
     [_woensdagButton setTextColor:[CPColor whiteColor]];
     [_woensdagButton setFont:[CPFont fontWithName:"Helvetica" size: 26.0]];
 
-    _vrijdagButton = [[CPButton alloc] initWithFrame: CGRectMake(51 + 25 + 250 + 250 + 25 + 25, 120 + 450, 250, 125)];
+    _vrijdagButton = [[CPButton alloc] initWithFrame: CGRectMake(51 + 25 + 250 + 250 + 25 + 25, 115 + 450, 250, 125)];
     [_vrijdagButton setTarget:self];
     [_vrijdagButton setAction:@selector(vrijdagFunction)];
     [_vrijdagButton setBackgroundColor:[CPColor colorWithCalibratedRed:158.0/255.0 green:243.0/255.0 blue:248.0/255.0 alpha:1.0]];
@@ -154,6 +163,12 @@
     [_vrijdagButton setTitle:"Strak!"];
     [_vrijdagButton setTextColor:[CPColor grayColor]];
     [_vrijdagButton setFont:[CPFont fontWithName:"Helvetica" size: 26.0]];
+
+    _backButton = [[CPButton alloc] initWithFrame:hideFrame];
+    [_backButton setBordered:NO];
+    [_backButton setImage:backImage];
+    [_backButton setAction:@selector(backFunction)];
+
 
 
 
@@ -190,8 +205,6 @@
 
     var iconAsk = [[CPImageView alloc] initWithFrame:CGRectMake(70, 2, 130, 130)];
     [iconAsk setImage:askImage];
-
-
 
 
 
@@ -267,6 +280,15 @@
     _labradorButton = [[CPButton alloc] initWithFrame: CGRectMake(76 + 250 + 25, 200, 250, 370)];
     _bulldogButton = [[CPButton alloc] initWithFrame: CGRectMake(76 + 250 + 25 + 250 + 25, 200, 250, 370)];
 
+     _fg2MainWindow = [[CPView alloc] initWithFrame:hideFrame];
+     _quiz2MainWindow = [[CPView alloc] initWithFrame:hideFrame];
+
+
+
+
+
+
+
 
     [self setCornerRadius:10.0 ofView:_mainWindow];
     [self setCornerRadius:10.0 ofButton:_maandagButton];
@@ -297,6 +319,7 @@
     [_mainWindow addSubview: videoTitle];
     [_baseView addSubview:headerTitle];
     [_baseView addSubview:_quitButton];
+    [_baseView addSubview:_backButton];
     [_baseView addSubview: _askQuestion];
     [_baseView addSubview: _sendWork];
     [_baseView addSubview: _playQuiz];
@@ -336,6 +359,7 @@
     [timeMon setTextColor: [CPColor whiteColor]];
     [timeWed setTextColor: [CPColor grayColor]];
     [timeFri setTextColor: [CPColor grayColor]];
+    [vcArray addObject:"Maandag"];
 }
 
 - (void) woensdagFunction
@@ -350,6 +374,7 @@
     [timeMon setTextColor: [CPColor grayColor]];
     [timeWed setTextColor: [CPColor whiteColor]];
     [timeFri setTextColor: [CPColor grayColor]];
+    [vcArray addObject:"Woensdag"];
 }
 
 - (void) vrijdagFunction
@@ -365,6 +390,7 @@
     [timeMon setTextColor: [CPColor grayColor]];
     [timeWed setTextColor: [CPColor grayColor]];
     [timeFri setTextColor: [CPColor whiteColor]];
+    [vcArray addObject:"Vrijdag"];
 }
 
 - (void) watchShow
@@ -378,12 +404,18 @@
     [_vrijdagButton setAlphaValue:0];
     [_mainWindow setAlphaValue:0];
     [_fgMainWindow setAlphaValue:0];
+    [_catMainWindow setFrame: hideFrame];
     [_quiz2MainWindow setFrame:hideFrame];
     [_upButton setAlphaValue:0];
     [_bottomButton setAlphaValue:0];
     [_quizMainWindow setAlphaValue:0];
 
-    _fg2MainWindow = [[CPView alloc] initWithFrame:CGRectMake(51, 125, 840, 575)];
+    [vcArray removeLastObject];
+    console.log(vcArray);
+
+    [_backButton setFrame:backFrame];
+
+    [_fg2MainWindow setFrame:CGRectMake(51, 125, 840, 575)];
     [_fg2MainWindow setBackgroundColor:[CPColor clearColor]];
 
     _upButton = [[CPButton alloc] initWithFrame:CGRectMake(300, 720, 200, 50)];
@@ -578,8 +610,10 @@
     [_catMainWindow setFrame:hideFrame];
     [_quizMainWindow setAlphaValue:0];
 
+    [_backButton setFrame:backFrame];
 
-    _quiz2MainWindow = [[CPView alloc] initWithFrame:CGRectMake(51, 125, 840, 575)];
+
+    [_quiz2MainWindow setFrame:CGRectMake(51, 125, 840, 575)];
     [_quiz2MainWindow setBackgroundColor:[CPColor clearColor]];
 
     var oneStarImage = [[CPImage alloc] initWithContentsOfFile:"Resources/ico_ster1.png" size:CGSizeMake(200,150)];
@@ -769,6 +803,7 @@
 
 - (void) homeFunction {
     [headerTitle setStringValue:"Te gast"];
+    [headerTitle setTextColor:activeBlueColor];
     [headerTitle sizeToFit];
 
     [_fgMainWindow setFrame:hideFrame];
@@ -776,6 +811,8 @@
     [_quizMainWindow setFrame:hideFrame];
     [_quiz2MainWindow setFrame:hideFrame];
     [_catMainWindow setFrame:hideFrame];
+
+    [_backButton setFrame:hideFrame];
 
     [_maandagButton setAlphaValue:1];
     [_woensdagButton setAlphaValue:1];
@@ -792,6 +829,33 @@
     [_maandagButton setAction:@selector(maandagFunction)];
     [_woensdagButton setAction:@selector(woensdagFunction)];
     [_vrijdagButton setAction:@selector(vrijdagFunction)];
+}
+
+- (void) backFunction {
+    var arrayCount = [vcArray count];
+
+    console.log([vcArray lastObject]);
+
+    switch ([vcArray lastObject]) {
+        case 0 :
+            console.log("Maandag");
+            [vcArray removeLastObject];
+            break;
+
+        case 1 :
+            console.log("Woensdag");
+            [vcArray removeLastObject];
+            break;
+
+        case 2 :
+            console.log("Woensdag");
+            [vcArray removeLastObject];
+            break;
+
+        default:
+            console.log("Nothing...");
+            [vcArray removeLastObject];
+    }
 }
 
 - (void) searchSub {
