@@ -58,6 +58,12 @@
     //ACTUALLY PLAY QUIZ LOL
     CPButton topleft, topRight, bottomLeft, bottomRight;
 
+    //SEND WORK
+    CPView _sw1MainWindow;
+
+    //ASK QUESTION
+    CPView _aQ1MainWindow;
+
     CPMutableArray vcArray;
 
 }
@@ -221,10 +227,12 @@
 
     _sendWork = [[CPButton alloc] initWithFrame:CGRectMake(952, 75 + 150 + 25 + 150 + 25, 275, 150)];
     [_sendWork setBackgroundColor:[CPColor colorWithCalibratedRed:139.0/255.0 green:228.0/255.0 blue:66.0/255.0 alpha:1.0]];
+    [_sendWork setAction:@selector(sendWork)];
     [_sendWork setBordered:NO];
 
     _askQuestion = [[CPButton alloc] initWithFrame:CGRectMake(952, 75 + 150 + 25 + 150 + 25 + 150 + 25, 275, 150)];
     [_askQuestion setBackgroundColor:[CPColor colorWithCalibratedRed:218.0/255.0 green:73.0/255.0 blue:73.0/255.0 alpha:1.0]];
+    [_askQuestion setAction:@selector(askQuestion)];
     [_askQuestion setBordered:NO];
 
 
@@ -282,6 +290,8 @@
 
      _fg2MainWindow = [[CPView alloc] initWithFrame:hideFrame];
      _quiz2MainWindow = [[CPView alloc] initWithFrame:hideFrame];
+     _sw1MainWindow = [[CPView alloc] initWithFrame:hideFrame];
+     _aQ1MainWindow = [[CPView alloc] initWithFrame:hideFrame];
 
 
 
@@ -406,6 +416,8 @@
     [_fgMainWindow setAlphaValue:0];
     [_catMainWindow setFrame: hideFrame];
     [_quiz2MainWindow setFrame:hideFrame];
+    [_sw1MainWindow setFrame:hideFrame];
+    [_aQ1MainWindow setFrame:hideFrame];
     [_upButton setAlphaValue:0];
     [_bottomButton setAlphaValue:0];
     [_quizMainWindow setAlphaValue:0];
@@ -608,6 +620,8 @@
     [_fgMainWindow setAlphaValue:0];
     [_fg2MainWindow setFrame:hideFrame];
     [_catMainWindow setFrame:hideFrame];
+    [_sw1MainWindow setFrame:hideFrame];
+    [_aQ1MainWindow setFrame:hideFrame];
     [_quizMainWindow setAlphaValue:0];
 
     [_backButton setFrame:backFrame];
@@ -811,6 +825,8 @@
     [_quizMainWindow setFrame:hideFrame];
     [_quiz2MainWindow setFrame:hideFrame];
     [_catMainWindow setFrame:hideFrame];
+    [_sw1MainWindow setFrame:hideFrame];
+    [_aQ1MainWindow setFrame:hideFrame];
 
     [_backButton setFrame:hideFrame];
 
@@ -932,6 +948,54 @@
     [_catMainWindow addSubview:filmButton];
     [_catMainWindow addSubview:gameButton];
 
+
+}
+
+- (void) sendWork {
+    [_maandagButton setAlphaValue:0];
+    [_woensdagButton setAlphaValue:0];
+    [_vrijdagButton setAlphaValue:0];
+    [_mainWindow setAlphaValue:0];
+    [_catMainWindow setFrame:hideFrame];
+    [_fgMainWindow setFrame:hideFrame];
+    [_fg2MainWindow setFrame:hideFrame];
+    [_quizMainWindow setFrame:hideFrame];
+    [_quiz2MainWindow setFrame:hideFrame];
+    [_aQ1MainWindow setFrame:hideFrame];
+
+    [headerTitle setStringValue:"Jouw werk in de uitzending"];
+    [headerTitle sizeToFit];
+    [headerTitle setTextColor:[CPColor colorWithCalibratedRed:139.0/255.0 green:228.0/255.0 blue:66.0/255.0 alpha:1.0]]
+
+    [_sw1MainWindow setFrame:CGRectMake(51, 125, 840, 575)];
+    [_sw1MainWindow setBackgroundColor:[CPColor colorWithCalibratedRed:139.0/255.0 green:228.0/255.0 blue:66.0/255.0 alpha:1.0]];
+    [self setCornerRadius: 10.0 ofView:_sw1MainWindow]
+
+    [_baseView addSubview:_sw1MainWindow];
+}
+
+- (void)askQuestion {
+    [_maandagButton setAlphaValue:0];
+    [_woensdagButton setAlphaValue:0];
+    [_vrijdagButton setAlphaValue:0];
+    [_mainWindow setAlphaValue:0];
+    [_catMainWindow setFrame:hideFrame];
+    [_fgMainWindow setFrame:hideFrame];
+    [_fg2MainWindow setFrame:hideFrame];
+    [_quizMainWindow setFrame:hideFrame];
+    [_quiz2MainWindow setFrame:hideFrame];
+    [_sw1MainWindow setFrame:hideFrame];
+
+    [headerTitle setStringValue:"Stel je vraag aan de gast!"];
+    [headerTitle sizeToFit];
+    [headerTitle setTextColor:[CPColor colorWithCalibratedRed:218.0/255.0 green:73.0/255.0 blue:73.0/255.0 alpha:1.0]];
+
+
+    [_aQ1MainWindow setFrame:CGRectMake(51, 125, 840, 575)];
+    [_aQ1MainWindow setBackgroundColor:[CPColor colorWithCalibratedRed:218.0/255.0 green:73.0/255.0 blue:73.0/255.0 alpha:1.0]];
+    [self setCornerRadius: 10.0 ofView:_aQ1MainWindow]
+
+    [_baseView addSubview:_aQ1MainWindow];
 
 }
 
