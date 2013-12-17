@@ -969,9 +969,20 @@
 
     [_sw1MainWindow setFrame:CGRectMake(51, 125, 840, 575)];
     [_sw1MainWindow setBackgroundColor:[CPColor colorWithCalibratedRed:139.0/255.0 green:228.0/255.0 blue:66.0/255.0 alpha:1.0]];
-    [self setCornerRadius: 10.0 ofView:_sw1MainWindow]
+    [self setCornerRadius: 10.0 ofView:_sw1MainWindow];
+
+    var cameraView = [[CPButton alloc] initWithFrame:CGRectMake(21, 80, 396, 291)];
+    [cameraView setBackgroundColor:[CPColor blueColor]];
+    [cameraView setBordered:NO];
+
+    var description = [[CPView alloc] initWithFrame:CGRectMake(428, 80, 396, 291)];
+    [description setBackgroundColor:[CPColor blueColor]];
+
+
 
     [_baseView addSubview:_sw1MainWindow];
+    [_sw1MainWindow addSubview:cameraView];
+    [_sw1MainWindow addSubview:description];
 }
 
 - (void)askQuestion {
