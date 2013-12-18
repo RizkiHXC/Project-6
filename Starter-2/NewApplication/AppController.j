@@ -53,16 +53,22 @@
     //PLAYQUIZ
     CPView _quizMainWindow;
     CPView _quiz2MainWindow;
+    CPView _quiz3MainWindow;
+    CPView _quiz4MainWindow;
     CPButton _puppyButton, _labradorButton, _bulldogButton;
 
     //ACTUALLY PLAY QUIZ LOL
-    CPButton topleft, topRight, bottomLeft, bottomRight;
+    CPButton topleft, topRight, bottomLeft, bottomRight, answerA, answerB, answerC;
+    CPTextField answerALabel, answerBLabel, answerCLabel, question, questionTitle;
 
     //SEND WORK
     CPView _sw1MainWindow;
+    CPView _sw2MainWindow;
+    CPView _sw3MainWindow;
 
     //ASK QUESTION
     CPView _aQ1MainWindow;
+    CPView _aQ2MainWindow;
 
     CPMutableArray vcArray;
 
@@ -288,10 +294,15 @@
     _labradorButton = [[CPButton alloc] initWithFrame: CGRectMake(76 + 250 + 25, 200, 250, 370)];
     _bulldogButton = [[CPButton alloc] initWithFrame: CGRectMake(76 + 250 + 25 + 250 + 25, 200, 250, 370)];
 
-     _fg2MainWindow = [[CPView alloc] initWithFrame:hideFrame];
-     _quiz2MainWindow = [[CPView alloc] initWithFrame:hideFrame];
-     _sw1MainWindow = [[CPView alloc] initWithFrame:hideFrame];
-     _aQ1MainWindow = [[CPView alloc] initWithFrame:hideFrame];
+    _fg2MainWindow = [[CPView alloc] initWithFrame:hideFrame];
+    _quiz2MainWindow = [[CPView alloc] initWithFrame:hideFrame];
+    _quiz3MainWindow = [[CPView alloc] initWithFrame:hideFrame];
+    _quiz4MainWindow = [[CPView alloc] initWithFrame:hideFrame];
+    _sw1MainWindow = [[CPView alloc] initWithFrame:hideFrame];
+    _sw2MainWindow = [[CPView alloc] initWithFrame:hideFrame];
+    _sw3MainWindow = [[CPView alloc] initWithFrame:hideFrame];
+    _aQ1MainWindow = [[CPView alloc] initWithFrame:hideFrame];
+    _aQ2MainWindow = [[CPView alloc] initWithFrame:hideFrame];
 
 
 
@@ -409,6 +420,9 @@
     [headerTitle setTextColor:activeBlueColor];
     [headerTitle sizeToFit];
 
+    [_upButton setAlphaValue:0];
+    [_bottomButton setAlphaValue:0];
+    [_quizMainWindow setAlphaValue:0];
     [_maandagButton setAlphaValue:0];
     [_woensdagButton setAlphaValue:0];
     [_vrijdagButton setAlphaValue:0];
@@ -416,11 +430,15 @@
     [_fgMainWindow setAlphaValue:0];
     [_catMainWindow setFrame: hideFrame];
     [_quiz2MainWindow setFrame:hideFrame];
-    [_sw1MainWindow setFrame:hideFrame];
+    [_quiz3MainWindow setFrame:hideFrame];
+    [_quiz4MainWindow setFrame:hideFrame];
+
     [_aQ1MainWindow setFrame:hideFrame];
-    [_upButton setAlphaValue:0];
-    [_bottomButton setAlphaValue:0];
-    [_quizMainWindow setAlphaValue:0];
+    [_aQ2MainWindow setFrame:hideFrame];
+
+    [_sw1MainWindow setFrame:hideFrame];
+    [_sw2MainWindow setFrame:hideFrame];
+    [_sw3MainWindow setFrame:hideFrame];
 
     [vcArray removeLastObject];
     console.log(vcArray);
@@ -618,11 +636,20 @@
     [_upButton setAlphaValue:0];
     [_bottomButton setAlphaValue:0];
     [_fgMainWindow setAlphaValue:0];
-    [_fg2MainWindow setFrame:hideFrame];
-    [_catMainWindow setFrame:hideFrame];
-    [_sw1MainWindow setFrame:hideFrame];
-    [_aQ1MainWindow setFrame:hideFrame];
     [_quizMainWindow setAlphaValue:0];
+    [_quiz3MainWindow setFrame:hideFrame];
+    [_quiz4MainWindow setFrame:hideFrame];
+
+    [_fg2MainWindow setFrame:hideFrame];
+
+    [_catMainWindow setFrame:hideFrame];
+
+    [_sw1MainWindow setFrame:hideFrame];
+    [_sw2MainWindow setFrame:hideFrame];
+    [_sw3MainWindow setFrame:hideFrame];
+
+    [_aQ1MainWindow setFrame:hideFrame];
+    [_aQ2MainWindow setFrame:hideFrame];
 
     [_backButton setFrame:backFrame];
 
@@ -759,6 +786,7 @@
 
     var one = [[CPButton alloc] initWithFrame:CGRectMake(110, 150, 190, 130)];
     [one setBackgroundColor:[CPColor clearColor]];
+    [one setAction:@selector(oneClick)];
     [one setBordered:NO];
     [one setAlphaValue:1];
     [one setImage:oneImage];
@@ -815,6 +843,123 @@
 
 }
 
+- (void) oneClick {
+    [_quizMainWindow setFrame:hideFrame];
+
+
+    [_quiz3MainWindow setFrame:CGRectMake(51, 125, 840, 575)];
+    [_quiz3MainWindow setBackgroundColor:[CPColor colorWithCalibratedRed:255.0/255.0 green:162.0/255.0 blue:0.0/255.0 alpha:1.0]];
+    [self setCornerRadius: 10.0 ofView:_quiz3MainWindow];
+
+    questionTitle = [[CPTextField alloc] initWithFrame:CGRectMake(0, 40, 840, 40)];
+    [questionTitle setStringValue:"Vraag 1 van de 2"];
+    [questionTitle setAlignment:CPCenterTextAlignment];
+    [questionTitle setFont:[CPFont fontWithName:"Helvetica-Bold" size: 30.0]];
+
+    question = [[CPTextField alloc] initWithFrame:CGRectMake(0, 80, 840, 40)];
+    [question setStringValue:"Waar op de aarde leeft koraal?"];
+    [question setFont:[CPFont fontWithName:"Helvetica-Bold" size: 30.0]];
+    [question setAlignment:CPCenterTextAlignment];
+
+    answerA = [[CPButton alloc] initWithFrame: CGRectMake(20, 130, 250, 370)];
+    [answerA setBackgroundColor: [CPColor whiteColor]];
+    //[answerA setAction:@selector(findGuest)];
+    [answerA setBordered:NO];
+
+    answerB = [[CPButton alloc] initWithFrame: CGRectMake(20 + 250 + 25, 130, 250, 370)];
+    [answerB setBackgroundColor:[CPColor whiteColor]];
+    //[answerB setAction:@selector(searchSub)];
+    [answerB setBordered:NO];
+
+    answerC = [[CPButton alloc] initWithFrame: CGRectMake(20 + 250 + 25 + 250 + 25, 130, 250, 370)];
+    [answerC setBackgroundColor: [CPColor whiteColor]];
+    [answerC setAction:@selector(answerCFunc)];
+    [answerC setBordered:NO];
+
+    answerALabel = [[CPTextField alloc] initWithFrame:CGRectMake(0, 300, 250, 40)];
+    [answerALabel setStringValue:"Oerwoud"];
+    [answerALabel setAlignment:CPCenterTextAlignment];
+    [answerALabel setFont:[CPFont fontWithName:"Helvetica-Bold" size: 30.0]];
+
+    answerBLabel = [[CPTextField alloc] initWithFrame:CGRectMake(0, 300, 250, 40)];
+    [answerBLabel setStringValue:"Woestijn"];
+    [answerBLabel setAlignment:CPCenterTextAlignment];
+    [answerBLabel setFont:[CPFont fontWithName:"Helvetica-Bold" size: 30.0]];
+
+    answerCLabel = [[CPTextField alloc] initWithFrame:CGRectMake(0, 300, 250, 40)];
+    [answerCLabel setStringValue:"Zeebodem"];
+    [answerCLabel setAlignment:CPCenterTextAlignment];
+    [answerCLabel setFont:[CPFont fontWithName:"Helvetica-Bold" size: 30.0]];
+
+
+
+    [_baseView addSubview:_quiz3MainWindow];
+    [_quiz3MainWindow addSubview:questionTitle];
+    [_quiz3MainWindow addSubview:question];
+    [_quiz3MainWindow addSubview:answerA];
+    [_quiz3MainWindow addSubview:answerB];
+    [_quiz3MainWindow addSubview:answerC];
+    [answerA addSubview:answerALabel];
+    [answerB addSubview:answerBLabel];
+    [answerC addSubview:answerCLabel];
+}
+
+- (void) answerCFunc {
+    [answerCLabel setTextColor:[CPColor greenColor]];
+        setTimeout(
+            function() {
+                [self answerCFunc2];
+        },2000);
+}
+
+- (void) answerCFunc2 {
+    [questionTitle setStringValue:"Vraag 2 van de 2"];
+    [question setStringValue:"Hoe kun je koraal het beste van dichtbij bekijken?"];
+
+    [answerALabel setStringValue:"Duiken"];
+    [answerA setAction:@selector(answerAFunc)];
+    [answerBLabel setStringValue:"Luchtballon"];
+    [answerCLabel setStringValue:"Fietsen"];
+    [answerCLabel setTextColor:[CPColor blackColor]];
+    [answerC setAction:nil];
+}
+
+- (void) answerAFunc {
+        [answerALabel setTextColor:[CPColor greenColor]];
+        setTimeout(
+            function() {
+                [self answerAFunc2];
+        },2000);
+}
+
+- (void) answerAFunc2 {
+    [_quiz4MainWindow setFrame:CGRectMake(51, 125, 840, 575)];
+    [_quiz4MainWindow setBackgroundColor:[CPColor colorWithCalibratedRed:255.0/255.0 green:162.0/255.0 blue:0.0/255.0 alpha:1.0]];
+    [self setCornerRadius: 10.0 ofView:_quiz4MainWindow];
+
+    var firstLine = [[CPTextField alloc] initWithFrame:CGRectMake(0, 40, 840, 40)];
+    [firstLine setStringValue:"Goed gedaan!"];
+    [firstLine setAlignment:CPCenterTextAlignment];
+    [firstLine setFont:[CPFont fontWithName:"Helvetica-Bold" size: 30.0]];
+
+    var secondLine = [[CPTextField alloc] initWithFrame:CGRectMake(0, 80, 840, 40)];
+    [secondLine setStringValue:"Kijk ook hoe Joris gaat duiken!"];
+    [secondLine setFont:[CPFont fontWithName:"Helvetica-Bold" size: 30.0]];
+    [secondLine setAlignment:CPCenterTextAlignment];
+
+
+    var doneButton = [[CPButton alloc] initWithFrame:CGRectMake(240, 525, 400, 50)];
+    [doneButton setBackgroundColor:[CPColor blueColor]];
+    [doneButton setBordered:NO];
+    [doneButton setTitle:"Speel nog een quiz!"];
+    [doneButton setAction:@selector(playQuiz)];
+
+    [_baseView addSubview: _quiz4MainWindow];
+    [_quiz4MainWindow addSubview: firstLine];
+    [_quiz4MainWindow addSubview: secondLine];
+    [_quiz4MainWindow addSubview: doneButton];
+}
+
 - (void) homeFunction {
     [headerTitle setStringValue:"Te gast"];
     [headerTitle setTextColor:activeBlueColor];
@@ -824,9 +969,14 @@
     [_fg2MainWindow setFrame:hideFrame];
     [_quizMainWindow setFrame:hideFrame];
     [_quiz2MainWindow setFrame:hideFrame];
+    [_quiz3MainWindow setFrame:hideFrame];
+    [_quiz4MainWindow setFrame:hideFrame];
     [_catMainWindow setFrame:hideFrame];
     [_sw1MainWindow setFrame:hideFrame];
+    [_sw2MainWindow setFrame:hideFrame];
+    [_sw3MainWindow setFrame:hideFrame];
     [_aQ1MainWindow setFrame:hideFrame];
+    [_aQ2MainWindow setFrame:hideFrame];
 
     [_backButton setFrame:hideFrame];
 
@@ -961,7 +1111,14 @@
     [_fg2MainWindow setFrame:hideFrame];
     [_quizMainWindow setFrame:hideFrame];
     [_quiz2MainWindow setFrame:hideFrame];
+    [_quiz3MainWindow setFrame:hideFrame];
+    [_quiz4MainWindow setFrame:hideFrame];
     [_aQ1MainWindow setFrame:hideFrame];
+    [_aQ2MainWindow setFrame:hideFrame];
+
+
+    [_sw2MainWindow setFrame:hideFrame];
+    [_sw3MainWindow setFrame:hideFrame];
 
     [headerTitle setStringValue:"Jouw werk in de uitzending"];
     [headerTitle sizeToFit];
@@ -973,16 +1130,98 @@
 
     var cameraView = [[CPButton alloc] initWithFrame:CGRectMake(21, 80, 396, 291)];
     [cameraView setBackgroundColor:[CPColor blueColor]];
+    [cameraView setAction:@selector(cameraOn)];
     [cameraView setBordered:NO];
 
     var description = [[CPView alloc] initWithFrame:CGRectMake(428, 80, 396, 291)];
-    [description setBackgroundColor:[CPColor blueColor]];
+    [description setBackgroundColor:[CPColor whiteColor]];
 
+    var descriptionLabel = [[CPTextField alloc] initWithFrame:CGRectMake(10, 10, 0, 0)];
+    [descriptionLabel setFont:[CPFont fontWithName:"Helvetica-Bold" size: 20.0]];
+    [descriptionLabel setDelegate:self];
+    [descriptionLabel setStringValue:"voer hier een omschrijving in!"];
+    [descriptionLabel sizeToFit];
+    [descriptionLabel setEditable:YES];
+
+    var checkBox = [[CPCheckBox alloc] initWithFrame:CGRectMake(21, 80 + 291 + 10, 20, 20)];
+    [checkBox setBackgroundColor:[CPColor clearColor]];
+
+    var checkLabel = [[CPTextField alloc] initWithFrame:CGRectMake(21 + 25, 80 + 291 + 12, 0, 0)];
+    [checkLabel setFont:[CPFont fontWithName:"Helvetica-Bold" size: 15.0]];
+    [checkLabel setStringValue:"Ik wil het graag zelf presenteren!"];
+    [checkLabel sizeToFit];
+
+    var doneButton = [[CPButton alloc] initWithFrame:CGRectMake(0, 525, 840, 50)];
+    [doneButton setBackgroundColor:[CPColor blueColor]];
+    [doneButton setBordered:NO];
+    [doneButton setTitle:"Klaar!"];
+    [doneButton setAction:@selector(sendWorkDone)];
 
 
     [_baseView addSubview:_sw1MainWindow];
     [_sw1MainWindow addSubview:cameraView];
     [_sw1MainWindow addSubview:description];
+    [_sw1MainWindow addSubview:checkBox];
+    [_sw1MainWindow addSubview:checkLabel];
+    [_sw1MainWindow addSubview:doneButton];
+    [description addSubview:descriptionLabel];
+}
+
+- (void)controlTextDidChange: (CPTextField)aTextField {
+    console.log("textfield change lol");
+}
+
+- (void) sendWorkDone {
+    [_sw2MainWindow setFrame: hideFrame];
+
+    [_sw3MainWindow setFrame:CGRectMake(51, 125, 840, 575)];
+    [_sw3MainWindow setBackgroundColor:[CPColor colorWithCalibratedRed:139.0/255.0 green:228.0/255.0 blue:66.0/255.0 alpha:1.0]];
+    [self setCornerRadius: 10.0 ofView:_sw3MainWindow];
+
+    var title = [[CPTextField alloc] initWithFrame:CGRectMake(260, 40, 0, 0)];
+    [title setStringValue:"Je werk is opgestuurd!"];
+    [title setFont:[CPFont fontWithName:"Helvetica-Bold" size: 30.0]];
+    [title sizeToFit];
+
+    var thumbsUp = [[CPImage alloc] initWithContentsOfFile:"Resources/ico_pencil.png" size:CPSizeMake(130, 130)];
+    var thumbsUpImage = [[CPImageView alloc] initWithFrame:CGRectMake(310, 170, 200, 200)];
+    [thumbsUpImage setImage:thumbsUp];
+
+    var doneButton = [[CPButton alloc] initWithFrame:CGRectMake(0, 525, 840, 50)];
+    [doneButton setBackgroundColor:[CPColor blueColor]];
+    [doneButton setBordered:NO];
+    [doneButton setTitle:"Klaar!"];
+    [doneButton setAction:@selector(homeFunction)];
+
+
+    [_baseView addSubview:_sw3MainWindow];
+    [_sw3MainWindow addSubview: title];
+    [_sw3MainWindow addSubview:thumbsUpImage];
+    [_sw3MainWindow addSubview:doneButton];
+}
+
+- (void) cameraOn {
+    [_sw1MainWindow setFrame:hideFrame];
+
+    console.log("remove");
+
+    [_sw2MainWindow setFrame:CGRectMake(51, 125, 840, 575)];
+    [_sw2MainWindow setBackgroundColor:[CPColor colorWithCalibratedRed:139.0/255.0 green:228.0/255.0 blue:66.0/255.0 alpha:1.0]];
+    [self setCornerRadius: 10.0 ofView:_sw2MainWindow];
+
+    var doneButton = [[CPButton alloc] initWithFrame:CGRectMake(440, 525, 400, 50)];
+    [doneButton setBackgroundColor:[CPColor blueColor]];
+    [doneButton setBordered:NO];
+    [doneButton setAction:@selector(sendWork)];
+
+    var againButton = [[CPButton alloc] initWithFrame:CGRectMake(0, 525, 400, 50)];
+    [againButton setBackgroundColor:[CPColor blueColor]];
+    [againButton setBordered:NO];
+
+
+    [_baseView addSubview:_sw2MainWindow];
+    [_sw2MainWindow addSubview: doneButton];
+    [_sw2MainWindow addSubview: againButton];
 }
 
 - (void)askQuestion {
@@ -991,22 +1230,112 @@
     [_vrijdagButton setAlphaValue:0];
     [_mainWindow setAlphaValue:0];
     [_catMainWindow setFrame:hideFrame];
+
+    [_aQ2MainWindow setFrame:hideFrame];
+
     [_fgMainWindow setFrame:hideFrame];
     [_fg2MainWindow setFrame:hideFrame];
+
     [_quizMainWindow setFrame:hideFrame];
     [_quiz2MainWindow setFrame:hideFrame];
+    [_quiz3MainWindow setFrame:hideFrame];
+    [_quiz4MainWindow setFrame:hideFrame];
+
     [_sw1MainWindow setFrame:hideFrame];
+    [_sw2MainWindow setFrame:hideFrame];
+    [_sw3MainWindow setFrame:hideFrame];
 
     [headerTitle setStringValue:"Stel je vraag aan de gast!"];
     [headerTitle sizeToFit];
     [headerTitle setTextColor:[CPColor colorWithCalibratedRed:218.0/255.0 green:73.0/255.0 blue:73.0/255.0 alpha:1.0]];
 
+    var guestName = [[CPTextField alloc] initWithFrame:CGRectMake(21, 21, 0, 0)];
+    [guestName setStringValue:"Nick en Simon"];
+    [guestName setFont:[CPFont fontWithName:"Helvetica-Bold" size: 25.0]];
+    [guestName sizeToFit];
+
+    var guestImage = [[CPImage alloc] initWithContentsOfFile:"Resources/ico_pencil.png" size:CPSizeMake(350, 280)];
+    var guestImageView = [[CPImageView alloc] initWithFrame:CGRectMake(21, 70, 350, 280)];
+    [guestImageView setImage:guestImage];
+    [guestImageView setBackgroundColor:[CPColor blueColor]];
+
+    var sectionName = [[CPTextField alloc] initWithFrame:CGRectMake(21, 360, 0, 0)];
+    [sectionName setStringValue:"Bij Babbels"];
+    [sectionName setFont:[CPFont fontWithName:"Helvetica-Bold" size: 25.0]];
+    [sectionName sizeToFit];
+
+    var genreName = [[CPTextField alloc] initWithFrame:CGRectMake(21, 390, 0, 0)];
+    [genreName setStringValue:"Je werk is opgestuurd!"];
+    [genreName setFont:[CPFont fontWithName:"Helvetica-Bold" size: 25.0]];
+    [genreName sizeToFit];
+
+    var checkBox = [[CPCheckBox alloc] initWithFrame:CGRectMake(21, 420, 20, 20)];
+    [checkBox setBackgroundColor:[CPColor clearColor]];
+
+    var checkLabel = [[CPTextField alloc] initWithFrame:CGRectMake(21 + 25, 420, 0, 0)];
+    [checkLabel setFont:[CPFont fontWithName:"Helvetica-Bold" size: 15.0]];
+    [checkLabel setStringValue:"Ik wil het graag zelf in de uitzending vragen"];
+    [checkLabel sizeToFit];
+
+    var doneButton = [[CPButton alloc] initWithFrame:CGRectMake(0, 525, 840, 50)];
+    [doneButton setBackgroundColor:[CPColor blueColor]];
+    [doneButton setBordered:NO];
+    [doneButton setTitle:"Opsturen!"];
+    [doneButton setAction:@selector(doneAsk)];
+
+    var description = [[CPView alloc] initWithFrame:CGRectMake(428, 70, 396, 350)];
+    [description setBackgroundColor:[CPColor whiteColor]];
+
+    var descriptionLabel = [[CPTextField alloc] initWithFrame:CGRectMake(10, 10, 0, 0)];
+    [descriptionLabel setFont:[CPFont fontWithName:"Helvetica-Bold" size: 20.0]];
+    [descriptionLabel setDelegate:self];
+    [descriptionLabel setStringValue:"Stel hier je vraag!"];
+    [descriptionLabel sizeToFit];
+    [descriptionLabel setEditable:YES];
 
     [_aQ1MainWindow setFrame:CGRectMake(51, 125, 840, 575)];
     [_aQ1MainWindow setBackgroundColor:[CPColor colorWithCalibratedRed:218.0/255.0 green:73.0/255.0 blue:73.0/255.0 alpha:1.0]];
     [self setCornerRadius: 10.0 ofView:_aQ1MainWindow]
 
     [_baseView addSubview:_aQ1MainWindow];
+    [_aQ1MainWindow addSubview: guestName];
+    [_aQ1MainWindow addSubview: guestImageView];
+    [_aQ1MainWindow addSubview: sectionName];
+    [_aQ1MainWindow addSubview: genreName];
+    [_aQ1MainWindow addSubview:checkBox];
+    [_aQ1MainWindow addSubview:checkLabel];
+    [_aQ1MainWindow addSubview:doneButton];
+    [_aQ1MainWindow addSubview:description];
+    [description addSubview:descriptionLabel];
+}
+
+- (void) doneAsk {
+    [_aQ1MainWindow setFrame:hideFrame];
+
+    [_aQ2MainWindow setFrame:CGRectMake(51, 125, 840, 575)];
+    [_aQ2MainWindow setBackgroundColor:[CPColor colorWithCalibratedRed:218.0/255.0 green:73.0/255.0 blue:73.0/255.0 alpha:1.0]];
+    [self setCornerRadius: 10.0 ofView:_aQ2MainWindow]
+
+    var title = [[CPTextField alloc] initWithFrame:CGRectMake(260, 40, 0, 0)];
+    [title setStringValue:"Je vraag is opgestuurd!"];
+    [title setFont:[CPFont fontWithName:"Helvetica-Bold" size: 30.0]];
+    [title sizeToFit];
+
+    var thumbsUp = [[CPImage alloc] initWithContentsOfFile:"Resources/ico_pencil.png" size:CPSizeMake(130, 130)];
+    var thumbsUpImage = [[CPImageView alloc] initWithFrame:CGRectMake(310, 170, 200, 200)];
+    [thumbsUpImage setImage:thumbsUp];
+
+    var doneButton = [[CPButton alloc] initWithFrame:CGRectMake(0, 525, 840, 50)];
+    [doneButton setBackgroundColor:[CPColor blueColor]];
+    [doneButton setBordered:NO];
+    [doneButton setTitle:"Klaar!"];
+    [doneButton setAction:@selector(homeFunction)];
+
+
+    [_aQ2MainWindow addSubview: title];
+    [_aQ2MainWindow addSubview:thumbsUpImage];
+    [_aQ2MainWindow addSubview:doneButton];
+    [_baseView addSubview:_aQ2MainWindow];
 
 }
 
@@ -1025,4 +1354,5 @@
     button._DOMElement.style.setProperty('-webkit-border-radius', radius+'px', null);
     button._DOMElement.style.setProperty('border-radius', radius+'px', null);
 }
+
 @end
