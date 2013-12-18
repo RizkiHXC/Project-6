@@ -1224,28 +1224,6 @@
 
     var cameraBG = [[CPView alloc] initWithFrame:CGRectMake(21, 21, 798, 485)];
     [cameraBG setBackgroundColor:[CPColor blackColor]];
-    // cameraBG.setAttribute("id", "camera");
-
-    var videoElement = document.getElementById('camera');
-
-    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
-
-    navigator.getUserMedia({
-        video: true,
-        audio: true
-    }, function(localMediaStream) {
-        videoElement.src = window.URL.createObjectURL(localMediaStream);
-
-        // Note: onloadedmetadata doesn't fire in Chrome when using it with getUserMedia.
-        // See crbug.com/110938.
-        videoElement.onloadedmetadata = function(e) {
-            console.log('Something happened. Do some stuff');
-        };
-    }, function(e) {
-        if (e.code === 1) {
-          console.log('User declined permissions.');
-        }
-    });
 
     var doneButton = [[CPButton alloc] initWithFrame:CGRectMake(441, 520, 379, 50)];
     [doneButton setBackgroundColor:[CPColor colorWithCalibratedRed:100.0/255.0 green:189.0/255.0 blue:27.0/255.0 alpha:1.0]];
