@@ -65,6 +65,7 @@
     CPView _sw1MainWindow;
     CPView _sw2MainWindow;
     CPView _sw3MainWindow;
+    CPTextField descriptionLabelSW;
 
     //ASK QUESTION
     CPView _aQ1MainWindow;
@@ -1128,20 +1129,27 @@
     [_sw1MainWindow setBackgroundColor:[CPColor colorWithCalibratedRed:139.0/255.0 green:228.0/255.0 blue:66.0/255.0 alpha:1.0]];
     [self setCornerRadius: 10.0 ofView:_sw1MainWindow];
 
-    var cameraView = [[CPButton alloc] initWithFrame:CGRectMake(21, 80, 396, 291)];
-    [cameraView setBackgroundColor:[CPColor blueColor]];
+    var cameraBG = [[CPView alloc] initWithFrame:CGRectMake(21, 80, 396, 291)];
+    [cameraBG setBackgroundColor:[CPColor blackColor]];
+
+    var cameraView = [[CPButton alloc] initWithFrame:CGRectMake(30, 30, 336, 231)];
+    [cameraView setBackgroundColor:[CPColor colorWithCalibratedRed:139.0/255.0 green:228.0/255.0 blue:66.0/255.0 alpha:1.0]];
     [cameraView setAction:@selector(cameraOn)];
     [cameraView setBordered:NO];
+
+    var cameraImage = [[CPImage alloc] initWithContentsOfFile:"Resources/Symbool-camera01.png" size:CPSizeMake(130, 130)];
+    var cameraImageView = [[CPImageView alloc] initWithFrame:CGRectMake(40, 10, 256, 211)];
+    [cameraImageView setImage:cameraImage];
+    [cameraImageView setBackgroundColor:[CPColor clearColor]];
 
     var description = [[CPView alloc] initWithFrame:CGRectMake(428, 80, 396, 291)];
     [description setBackgroundColor:[CPColor whiteColor]];
 
-    var descriptionLabel = [[CPTextField alloc] initWithFrame:CGRectMake(10, 10, 0, 0)];
-    [descriptionLabel setFont:[CPFont fontWithName:"Helvetica-Bold" size: 20.0]];
-    [descriptionLabel setDelegate:self];
-    [descriptionLabel setStringValue:"voer hier een omschrijving in!"];
-    [descriptionLabel sizeToFit];
-    [descriptionLabel setEditable:YES];
+    descriptionLabelSW = [[CPTextField alloc] initWithFrame:CGRectMake(10, 10, 380, 260)];
+    [descriptionLabelSW setFont:[CPFont fontWithName:"Helvetica-Bold" size: 20.0]];
+    [descriptionLabelSW setDelegate:self];
+    [descriptionLabelSW setStringValue:"voer hier een omschrijving in!"];
+    [descriptionLabelSW setEditable:YES];
 
     var checkBox = [[CPCheckBox alloc] initWithFrame:CGRectMake(21, 80 + 291 + 10, 20, 20)];
     [checkBox setBackgroundColor:[CPColor clearColor]];
@@ -1159,12 +1167,14 @@
 
 
     [_baseView addSubview:_sw1MainWindow];
-    [_sw1MainWindow addSubview:cameraView];
+    [_sw1MainWindow addSubview:cameraBG];
+    [cameraBG addSubview:cameraView];
+    [cameraView addSubview:cameraImageView];
     [_sw1MainWindow addSubview:description];
     [_sw1MainWindow addSubview:checkBox];
     [_sw1MainWindow addSubview:checkLabel];
     [_sw1MainWindow addSubview:doneButton];
-    [description addSubview:descriptionLabel];
+    [description addSubview:descriptionLabelSW];
 }
 
 - (void)controlTextDidChange: (CPTextField)aTextField {
@@ -1172,10 +1182,11 @@
 }
 
 - (void) sendWorkDone {
+    [_sw1MainWindow setFrame: hideFrame];
     [_sw2MainWindow setFrame: hideFrame];
 
     [_sw3MainWindow setFrame:CGRectMake(51, 125, 840, 575)];
-    [_sw3MainWindow setBackgroundColor:[CPColor colorWithCalibratedRed:139.0/255.0 green:228.0/255.0 blue:66.0/255.0 alpha:1.0]];
+    [_sw3MainWindow setBackgroundColor:[CPColor clearColor]];
     [self setCornerRadius: 10.0 ofView:_sw3MainWindow];
 
     var title = [[CPTextField alloc] initWithFrame:CGRectMake(260, 40, 0, 0)];
@@ -1183,16 +1194,18 @@
     [title setFont:[CPFont fontWithName:"Helvetica-Bold" size: 30.0]];
     [title sizeToFit];
 
-    var thumbsUp = [[CPImage alloc] initWithContentsOfFile:"Resources/ico_pencil.png" size:CPSizeMake(130, 130)];
-    var thumbsUpImage = [[CPImageView alloc] initWithFrame:CGRectMake(310, 170, 200, 200)];
+    var thumbsUp = [[CPImage alloc] initWithContentsOfFile:"Resources/symbool-hand01.png" size:CPSizeMake(130, 130)];
+    var thumbsUpImage = [[CPImageView alloc] initWithFrame:CGRectMake(290, 100, 260, 260)];
     [thumbsUpImage setImage:thumbsUp];
+    [thumbsUpImage setBackgroundColor:[CPColor colorWithCalibratedRed:139.0/255.0 green:228.0/255.0 blue:66.0/255.0 alpha:1.0]];
+    [self setCornerRadius:10.0 ofImage:thumbsUpImage];
 
-    var doneButton = [[CPButton alloc] initWithFrame:CGRectMake(0, 525, 840, 50)];
-    [doneButton setBackgroundColor:[CPColor blueColor]];
+    var doneButton = [[CPButton alloc] initWithFrame:CGRectMake(320, 480, 200, 50)];
+    [doneButton setBackgroundColor:[CPColor colorWithCalibratedRed:139.0/255.0 green:228.0/255.0 blue:66.0/255.0 alpha:1.0]];
     [doneButton setBordered:NO];
-    [doneButton setTitle:"Klaar!"];
+    [doneButton setTitle:"Naar home"];
     [doneButton setAction:@selector(homeFunction)];
-
+    [self setCornerRadius: 10.0 ofButton:doneButton];
 
     [_baseView addSubview:_sw3MainWindow];
     [_sw3MainWindow addSubview: title];
@@ -1209,17 +1222,43 @@
     [_sw2MainWindow setBackgroundColor:[CPColor colorWithCalibratedRed:139.0/255.0 green:228.0/255.0 blue:66.0/255.0 alpha:1.0]];
     [self setCornerRadius: 10.0 ofView:_sw2MainWindow];
 
-    var doneButton = [[CPButton alloc] initWithFrame:CGRectMake(440, 525, 400, 50)];
-    [doneButton setBackgroundColor:[CPColor blueColor]];
+    var cameraBG = [[CPView alloc] initWithFrame:CGRectMake(21, 21, 798, 485)];
+    [cameraBG setBackgroundColor:[CPColor blackColor]];
+    // cameraBG.setAttribute("id", "camera");
+
+    var videoElement = document.getElementById('camera');
+
+    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+
+    navigator.getUserMedia({
+        video: true,
+        audio: true
+    }, function(localMediaStream) {
+        videoElement.src = window.URL.createObjectURL(localMediaStream);
+
+        // Note: onloadedmetadata doesn't fire in Chrome when using it with getUserMedia.
+        // See crbug.com/110938.
+        videoElement.onloadedmetadata = function(e) {
+            console.log('Something happened. Do some stuff');
+        };
+    }, function(e) {
+        if (e.code === 1) {
+          console.log('User declined permissions.');
+        }
+    });
+
+    var doneButton = [[CPButton alloc] initWithFrame:CGRectMake(441, 520, 379, 50)];
+    [doneButton setBackgroundColor:[CPColor colorWithCalibratedRed:100.0/255.0 green:189.0/255.0 blue:27.0/255.0 alpha:1.0]];
     [doneButton setBordered:NO];
     [doneButton setAction:@selector(sendWork)];
 
-    var againButton = [[CPButton alloc] initWithFrame:CGRectMake(0, 525, 400, 50)];
-    [againButton setBackgroundColor:[CPColor blueColor]];
+    var againButton = [[CPButton alloc] initWithFrame:CGRectMake(21, 520, 379, 50)];
+    [againButton setBackgroundColor:[CPColor colorWithCalibratedRed:100.0/255.0 green:189.0/255.0 blue:27.0/255.0 alpha:1.0]];
     [againButton setBordered:NO];
 
 
     [_baseView addSubview:_sw2MainWindow];
+    [_sw2MainWindow addSubview:cameraBG];
     [_sw2MainWindow addSubview: doneButton];
     [_sw2MainWindow addSubview: againButton];
 }
@@ -1286,7 +1325,7 @@
     var description = [[CPView alloc] initWithFrame:CGRectMake(428, 70, 396, 350)];
     [description setBackgroundColor:[CPColor whiteColor]];
 
-    var descriptionLabel = [[CPTextField alloc] initWithFrame:CGRectMake(10, 10, 0, 0)];
+    var descriptionLabel = [[CPTextField alloc] initWithFrame:CGRectMake(10, 10, 380, 260)];
     [descriptionLabel setFont:[CPFont fontWithName:"Helvetica-Bold" size: 20.0]];
     [descriptionLabel setDelegate:self];
     [descriptionLabel setStringValue:"Stel hier je vraag!"];
@@ -1313,7 +1352,7 @@
     [_aQ1MainWindow setFrame:hideFrame];
 
     [_aQ2MainWindow setFrame:CGRectMake(51, 125, 840, 575)];
-    [_aQ2MainWindow setBackgroundColor:[CPColor colorWithCalibratedRed:218.0/255.0 green:73.0/255.0 blue:73.0/255.0 alpha:1.0]];
+    [_aQ2MainWindow setBackgroundColor:[CPColor clearColor]];
     [self setCornerRadius: 10.0 ofView:_aQ2MainWindow]
 
     var title = [[CPTextField alloc] initWithFrame:CGRectMake(260, 40, 0, 0)];
@@ -1321,15 +1360,19 @@
     [title setFont:[CPFont fontWithName:"Helvetica-Bold" size: 30.0]];
     [title sizeToFit];
 
-    var thumbsUp = [[CPImage alloc] initWithContentsOfFile:"Resources/ico_pencil.png" size:CPSizeMake(130, 130)];
-    var thumbsUpImage = [[CPImageView alloc] initWithFrame:CGRectMake(310, 170, 200, 200)];
+    var thumbsUp = [[CPImage alloc] initWithContentsOfFile:"Resources/symbool-hand01.png" size:CPSizeMake(130, 130)];
+    var thumbsUpImage = [[CPImageView alloc] initWithFrame:CGRectMake(290, 100, 260, 260)];
+    [thumbsUpImage setBackgroundColor:[CPColor colorWithCalibratedRed:218.0/255.0 green:73.0/255.0 blue:73.0/255.0 alpha:1.0]];
     [thumbsUpImage setImage:thumbsUp];
+    [self setCornerRadius:10.0 ofView:thumbsUpImage];
 
-    var doneButton = [[CPButton alloc] initWithFrame:CGRectMake(0, 525, 840, 50)];
-    [doneButton setBackgroundColor:[CPColor blueColor]];
+    var doneButton = [[CPButton alloc] initWithFrame:CGRectMake(320, 480, 200, 50)];
+    [doneButton setBackgroundColor:[CPColor colorWithCalibratedRed:218.0/255.0 green:73.0/255.0 blue:73.0/255.0 alpha:1.0]];
     [doneButton setBordered:NO];
-    [doneButton setTitle:"Klaar!"];
+    [doneButton setTitle:"Naar home"];
+    [doneButton setTextColor:[CPColor whiteColor]];
     [doneButton setAction:@selector(homeFunction)];
+    [self setCornerRadius: 10.0 ofButton:doneButton];
 
 
     [_aQ2MainWindow addSubview: title];
@@ -1353,6 +1396,14 @@
     button._DOMElement.style.setProperty('-moz-border-radius', radius+'px', null);
     button._DOMElement.style.setProperty('-webkit-border-radius', radius+'px', null);
     button._DOMElement.style.setProperty('border-radius', radius+'px', null);
+}
+
+- (void)setCornerRadius:(CPNumber)radius ofImage:(CPImageView)imageview{
+    radius = (radius != null) ? radius : 0;
+    imageview._DOMElement.style.setProperty('border-radius', radius+'px', null);
+    imageview._DOMElement.style.setProperty('-moz-border-radius', radius+'px', null);
+    imageview._DOMElement.style.setProperty('-webkit-border-radius', radius+'px', null);
+    imageview._DOMElement.style.setProperty('border-radius', radius+'px', null);
 }
 
 @end
