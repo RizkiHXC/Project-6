@@ -73,6 +73,8 @@
     CPView _aQ1MainWindow;
     CPView _aQ2MainWindow;
 
+
+    BOOL isFirstQ;
     CPMutableArray vcArray;
 
 }
@@ -248,28 +250,28 @@
 
 
     //Labels on Buttons
-    var askLabel = [[CPTextField alloc] initWithFrame:CGRectMake(60, 125, 0, 0)];
+    var askLabel = [[CPTextField alloc] initWithFrame:CGRectMake(0, 125, 275, 30)];
     [askLabel setFont:[CPFont fontWithName:"Helvetica" size:14.0]];
     [askLabel setStringValue:"Stel je vraag!"];
-    [askLabel sizeToFit];
+    [askLabel setAlignment:CPCenterTextAlignment];
     [askLabel setTextColor: [CPColor whiteColor]];
 
-    var sendLabel = [[CPTextField alloc] initWithFrame:CGRectMake(53, 125, 0, 0)];
+    var sendLabel = [[CPTextField alloc] initWithFrame:CGRectMake(0, 125, 275, 30)];
     [sendLabel setFont:[CPFont fontWithName:"Helvetica" size:14.0]];
     [sendLabel setStringValue:"Jouw werk inzending!"];
-    [sendLabel sizeToFit];
+    [sendLabel setAlignment:CPCenterTextAlignment];
     [sendLabel setTextColor: [CPColor whiteColor]];
 
-    var playLabel = [[CPTextField alloc] initWithFrame:CGRectMake(92, 125, 0, 0)];
+    var playLabel = [[CPTextField alloc] initWithFrame:CGRectMake(0, 125, 275, 30)];
     [playLabel setFont:[CPFont fontWithName:"Helvetica" size:14.0]];
     [playLabel setStringValue:"Speel een quiz!"];
-    [playLabel sizeToFit];
+    [playLabel setAlignment:CPCenterTextAlignment];
     [playLabel setTextColor: [CPColor whiteColor]];
 
-    var watchLabel = [[CPTextField alloc] initWithFrame:CGRectMake(62, 125, 0, 0)];
+    var watchLabel = [[CPTextField alloc] initWithFrame:CGRectMake(0, 125, 275, 30)];
     [watchLabel setFont:[CPFont fontWithName:"Helvetica" size:14.0]];
     [watchLabel setStringValue:"Uitzending terugkijken"];
-    [watchLabel sizeToFit];
+    [watchLabel setAlignment:CPCenterTextAlignment];
     [watchLabel setTextColor: [CPColor whiteColor]];
 
 
@@ -936,12 +938,12 @@
 
     answerA = [[CPButton alloc] initWithFrame: CGRectMake(20, 130, 250, 370)];
     [answerA setBackgroundColor: [CPColor whiteColor]];
-    //[answerA setAction:@selector(findGuest)];
+    [answerA setAction:@selector(answerA1)];
     [answerA setBordered:NO];
 
     answerB = [[CPButton alloc] initWithFrame: CGRectMake(20 + 250 + 25, 130, 250, 370)];
     [answerB setBackgroundColor:[CPColor whiteColor]];
-    //[answerB setAction:@selector(searchSub)];
+    [answerB setAction:@selector(answerB1)];
     [answerB setBordered:NO];
 
     answerC = [[CPButton alloc] initWithFrame: CGRectMake(20 + 250 + 25 + 250 + 25, 130, 250, 370)];
@@ -963,6 +965,10 @@
     [answerCLabel setStringValue:"Zeebodem"];
     [answerCLabel setAlignment:CPCenterTextAlignment];
     [answerCLabel setFont:[CPFont fontWithName:"Helvetica-Bold" size: 30.0]];
+
+    [answerCLabel setTextColor:[CPColor blackColor]];
+    [answerBLabel setTextColor:[CPColor blackColor]];
+    [answerALabel setTextColor:[CPColor blackColor]];
 
 
 
@@ -1004,7 +1010,10 @@
     [answerBLabel setStringValue:"Luchtballon"];
     [answerCLabel setStringValue:"Fietsen"];
     [answerCLabel setTextColor:[CPColor blackColor]];
+    [answerBLabel setTextColor:[CPColor blackColor]];
+    [answerALabel setTextColor:[CPColor blackColor]];
     [answerC setAction:nil];
+    [answerC setAction:@selector(answerC1)];
 }
 
 - (void) answerAFunc {
@@ -1053,6 +1062,18 @@
     [_quiz4MainWindow addSubview: secondLine];
     [_quiz4MainWindow addSubview: doneButton];
     [_quiz4MainWindow addSubview: videoWebView];
+}
+
+- (void) answerC1 {
+    [answerCLabel setTextColor:[CPColor redColor]];
+}
+
+- (void) answerA1 {
+    [answerALabel setTextColor:[CPColor redColor]];
+}
+
+- (void) answerB1 {
+    [answerBLabel setTextColor:[CPColor redColor]];
 }
 
 - (void) homeFunction {
@@ -1124,6 +1145,16 @@
     [_upButton setAlphaValue: 1];
     [_bottomButton setAlphaValue: 1];
 
+    var muziekim = [[CPImage alloc] initWithContentsOfFile:"Resources/Muziek01.png" size:CPSizeMake(170, 170)];
+    var sportim = [[CPImage alloc] initWithContentsOfFile:"Resources/Sport01.png" size:CPSizeMake(170, 170)];
+    var weerim = [[CPImage alloc] initWithContentsOfFile:"Resources/Weer01.png" size:CPSizeMake(170, 170)];
+    var hobbiesim = [[CPImage alloc] initWithContentsOfFile:"Resources/Hobbies01.png" size:CPSizeMake(170, 170)];
+    var natuurim = [[CPImage alloc] initWithContentsOfFile:"Resources/Natuur01.png" size:CPSizeMake(170, 170)];
+    var nieuwsim = [[CPImage alloc] initWithContentsOfFile:"Resources/Nieuws01.png" size:CPSizeMake(170, 170)];
+    var filmim = [[CPImage alloc] initWithContentsOfFile:"Resources/Film01.png" size:CPSizeMake(170, 170)];
+    var gameim = [[CPImage alloc] initWithContentsOfFile:"Resources/Games01.png" size:CPSizeMake(170, 170)];
+
+
     _catMainWindow = [[CPView alloc] initWithFrame:CGRectMake(51, 125, 840, 575)];
     [_catMainWindow setBackgroundColor:[CPColor clearColor]];
 
@@ -1137,12 +1168,14 @@
     [muziekButton setBackgroundColor:activeBlueColor];
     [muziekButton setTitle:"Muziek"];
     [muziekButton setBordered:NO];
+    [muziekButton setImage:muziekim];
     [self setCornerRadius:10.0 ofButton:muziekButton];
 
     var sportButton = [[CPButton alloc] initWithFrame:CGRectMake(50 + 170 + 20, 50, 170, 170)];
     [sportButton setBackgroundColor:activeBlueColor];
     [sportButton setTitle:"Sport"];
     [sportButton setBordered:NO];
+    [sportButton setImage:sportim];
     [self setCornerRadius:10.0 ofButton:sportButton];
 
 
@@ -1150,36 +1183,42 @@
     [weerButton setBackgroundColor:activeBlueColor];
     [weerButton setTitle:"Weer"];
     [weerButton setBordered:NO];
+    [weerButton setImage:weerim];
     [self setCornerRadius:10.0 ofButton:weerButton];
 
     var hobbiesButton = [[CPButton alloc] initWithFrame:CGRectMake(50 + 170 + 20 + 170 + 20 + 170 + 20, 50, 170, 170)];
     [hobbiesButton setBackgroundColor:activeBlueColor];
     [hobbiesButton setTitle:"Hobbies"];
     [hobbiesButton setBordered:NO];
+    [hobbiesButton setImage:hobbiesim];
     [self setCornerRadius:10.0 ofButton:hobbiesButton];
 
     var natuurButton = [[CPButton alloc] initWithFrame:CGRectMake(50, 250, 170, 170)];
     [natuurButton setBackgroundColor:activeBlueColor];
     [natuurButton setTitle:"Natuur"];
     [natuurButton setBordered:NO];
+    [natuurButton setImage:natuurim];
     [self setCornerRadius:10.0 ofButton:natuurButton];
 
     var nieuwsButton = [[CPButton alloc] initWithFrame:CGRectMake(50 + 170 + 20, 250, 170, 170)];
     [nieuwsButton setBackgroundColor:activeBlueColor];
     [nieuwsButton setTitle:"Nieuws"];
     [nieuwsButton setBordered:NO];
+    [nieuwsButton setImage:nieuwsim];
     [self setCornerRadius:10.0 ofButton:nieuwsButton];
 
     var filmButton = [[CPButton alloc] initWithFrame:CGRectMake(50 + 170 + 20 + 170 + 20, 250, 170, 170)];
     [filmButton setBackgroundColor:activeBlueColor];
     [filmButton setTitle:"Film"];
     [filmButton setBordered:NO];
+    [filmButton setImage:filmim];
     [self setCornerRadius:10.0 ofButton:filmButton];
 
     var gameButton = [[CPButton alloc] initWithFrame:CGRectMake(50 + 170 + 20 + 170 + 20 + 170 + 20, 250, 170, 170)];
     [gameButton setBackgroundColor:activeBlueColor];
     [gameButton setTitle:"Games"];
     [gameButton setBordered:NO];
+    [gameButton setImage:gameim];
     [self setCornerRadius:10.0 ofButton:gameButton];
 
     [_baseView addSubview:_catMainWindow];
