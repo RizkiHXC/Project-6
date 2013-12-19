@@ -250,25 +250,25 @@
     //Labels on Buttons
     var askLabel = [[CPTextField alloc] initWithFrame:CGRectMake(60, 125, 0, 0)];
     [askLabel setFont:[CPFont fontWithName:"Helvetica" size:14.0]];
-    [askLabel setStringValue:"Stel je vraag aan de gast"];
+    [askLabel setStringValue:"Stel je vraag!"];
     [askLabel sizeToFit];
     [askLabel setTextColor: [CPColor whiteColor]];
 
     var sendLabel = [[CPTextField alloc] initWithFrame:CGRectMake(53, 125, 0, 0)];
     [sendLabel setFont:[CPFont fontWithName:"Helvetica" size:14.0]];
-    [sendLabel setStringValue:"Jouw werk in de uitzending!"];
+    [sendLabel setStringValue:"Jouw werk inzending!"];
     [sendLabel sizeToFit];
     [sendLabel setTextColor: [CPColor whiteColor]];
 
     var playLabel = [[CPTextField alloc] initWithFrame:CGRectMake(92, 125, 0, 0)];
     [playLabel setFont:[CPFont fontWithName:"Helvetica" size:14.0]];
-    [playLabel setStringValue:"Speel de quiz!"];
+    [playLabel setStringValue:"Speel een quiz!"];
     [playLabel sizeToFit];
     [playLabel setTextColor: [CPColor whiteColor]];
 
     var watchLabel = [[CPTextField alloc] initWithFrame:CGRectMake(62, 125, 0, 0)];
     [watchLabel setFont:[CPFont fontWithName:"Helvetica" size:14.0]];
-    [watchLabel setStringValue:"Kijk een uitzending terug"];
+    [watchLabel setStringValue:"Uitzending terugkijken"];
     [watchLabel sizeToFit];
     [watchLabel setTextColor: [CPColor whiteColor]];
 
@@ -1211,6 +1211,7 @@
     [_aQ1MainWindow setFrame:hideFrame];
     [_aQ2MainWindow setFrame:hideFrame];
 
+    [_backButton setFrame:backFrame];
 
     [_sw2MainWindow setFrame:hideFrame];
     [_sw3MainWindow setFrame:hideFrame];
@@ -1352,6 +1353,8 @@
     [_mainWindow setAlphaValue:0];
     [_catMainWindow setFrame:hideFrame];
 
+    [_backButton setFrame:backFrame];
+
     [_aQ2MainWindow setFrame:hideFrame];
 
     [_fgMainWindow setFrame:hideFrame];
@@ -1421,14 +1424,6 @@
     [descriptionLabel setTextColor:[CPColor colorWithCalibratedRed:124.0/255.0 green:124.0/255.0 blue:124.0/255.0 alpha:1.0]];
     [descriptionLabel setEditable:YES];
     [descriptionLabel setLineBreakMode:CPLineBreakByWordWrapping]
-
-
-// CPLineBreakByCharWrapping
-// CPLineBreakByClipping
-// CPLineBreakByTruncatingHead
-// CPLineBreakByTruncatingTail
-// CPLineBreakByTruncatingMiddle
-
 
 
 
