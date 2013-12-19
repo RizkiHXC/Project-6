@@ -56,8 +56,9 @@
     CPView _quiz3MainWindow;
     CPView _quiz4MainWindow;
     CPButton _puppyButton, _labradorButton, _bulldogButton;
+    CPImageView answerImageView1, answerImageView2, answerImageView3;
 
-    //ACTUALLY PLAY QUIZ LOL
+    //ACTUALLY PLAY QUIZ
     CPButton topleft, topRight, bottomLeft, bottomRight, answerA, answerB, answerC;
     CPTextField answerALabel, answerBLabel, answerCLabel, question, questionTitle;
 
@@ -639,7 +640,7 @@
     [guestDown setImage:benedenim];
     [self setCornerRadius:10.0 ofButton:guestDown];
 
-    detailedWebView = [[CPWebView alloc] initWithFrame:CGRectMake(300, 100, 500, 300)];
+    detailedWebView = [[CPWebView alloc] initWithFrame:CGRectMake(300, 100, 520, 330)];
     [detailedWebView setMainFrameURL:"http://rizkicalame.com/test"];
     [detailedWebView setBackgroundColor:activeBlueColor];
     [detailedWebView setScrollMode:CPWebViewScrollNone];
@@ -917,6 +918,22 @@
     [question setFont:[CPFont fontWithName:"Helvetica-Bold" size: 30.0]];
     [question setAlignment:CPCenterTextAlignment];
 
+    var answerImage1 = [[CPImage alloc] initWithContentsOfFile:"Resources/oerwoud01.png" size:CPSizeMake(225, 225)];
+    var answerImage2 = [[CPImage alloc] initWithContentsOfFile:"Resources/woestijn01.png" size:CPSizeMake(225, 225)];
+    var answerImage3 = [[CPImage alloc] initWithContentsOfFile:"Resources/zeebodem01.png" size:CPSizeMake(225, 225)];
+
+    answerImageView1 = [[CPImageView alloc] initWithFrame:CGRectMake(12, 20, 225, 225)];
+    [answerImageView1 setImage:answerImage1];
+    [answerImageView1 setBackgroundColor:[CPColor clearColor]];
+
+    answerImageView2 = [[CPImageView alloc] initWithFrame:CGRectMake(12, 20, 225, 225)];
+    [answerImageView2 setImage:answerImage2];
+    [answerImageView2 setBackgroundColor:[CPColor clearColor]];
+
+    answerImageView3 = [[CPImageView alloc] initWithFrame:CGRectMake(12, 20, 225, 225)];
+    [answerImageView3 setImage:answerImage3];
+    [answerImageView3 setBackgroundColor:[CPColor clearColor]];
+
     answerA = [[CPButton alloc] initWithFrame: CGRectMake(20, 130, 250, 370)];
     [answerA setBackgroundColor: [CPColor whiteColor]];
     //[answerA setAction:@selector(findGuest)];
@@ -958,6 +975,9 @@
     [answerA addSubview:answerALabel];
     [answerB addSubview:answerBLabel];
     [answerC addSubview:answerCLabel];
+    [answerA addSubview:answerImageView1];
+    [answerB addSubview:answerImageView2];
+    [answerC addSubview:answerImageView3];
 }
 
 - (void) answerCFunc {
@@ -971,6 +991,13 @@
 - (void) answerCFunc2 {
     [questionTitle setStringValue:"Vraag 2 van de 2"];
     [question setStringValue:"Hoe kun je koraal het beste van dichtbij bekijken?"];
+
+    var answerImage1 = [[CPImage alloc] initWithContentsOfFile:"Resources/duiken01.png" size:CPSizeMake(225, 225)];
+    var answerImage2 = [[CPImage alloc] initWithContentsOfFile:"Resources/luchtballon01.png" size:CPSizeMake(225, 225)];
+    var answerImage3 = [[CPImage alloc] initWithContentsOfFile:"Resources/fietsen01.png" size:CPSizeMake(225, 225)];
+    [answerImageView1 setImage:answerImage1];
+    [answerImageView2 setImage:answerImage2];
+    [answerImageView3 setImage:answerImage3];
 
     [answerALabel setStringValue:"Duiken"];
     [answerA setAction:@selector(answerAFunc)];
@@ -989,31 +1016,43 @@
 }
 
 - (void) answerAFunc2 {
+    [_quiz3MainWindow setFrame:hideFrame];
+
     [_quiz4MainWindow setFrame:CGRectMake(51, 125, 840, 575)];
-    [_quiz4MainWindow setBackgroundColor:[CPColor colorWithCalibratedRed:255.0/255.0 green:162.0/255.0 blue:0.0/255.0 alpha:1.0]];
+    [_quiz4MainWindow setBackgroundColor:[CPColor clearColor]];
     [self setCornerRadius: 10.0 ofView:_quiz4MainWindow];
 
     var firstLine = [[CPTextField alloc] initWithFrame:CGRectMake(0, 40, 840, 40)];
     [firstLine setStringValue:"Goed gedaan!"];
     [firstLine setAlignment:CPCenterTextAlignment];
+    [firstLine setTextColor:[CPColor colorWithCalibratedRed:124.0/255.0 green:124.0/255.0 blue:124.0/255.0 alpha:1.0]];
     [firstLine setFont:[CPFont fontWithName:"Helvetica-Bold" size: 30.0]];
 
     var secondLine = [[CPTextField alloc] initWithFrame:CGRectMake(0, 80, 840, 40)];
     [secondLine setStringValue:"Kijk ook hoe Joris gaat duiken!"];
     [secondLine setFont:[CPFont fontWithName:"Helvetica-Bold" size: 30.0]];
+    [secondLine setTextColor:[CPColor colorWithCalibratedRed:124.0/255.0 green:124.0/255.0 blue:124.0/255.0 alpha:1.0]];
     [secondLine setAlignment:CPCenterTextAlignment];
 
+    var videoWebView = [[CPWebView alloc] initWithFrame:CGRectMake(170, 140, 500, 300)];
+    [videoWebView setMainFrameURL:"http://rizkicalame.com/test/joris.html"];
+    [videoWebView setBackgroundColor:[CPColor clearColor]];
+    [videoWebView setScrollMode:CPWebViewScrollNone];
 
-    var doneButton = [[CPButton alloc] initWithFrame:CGRectMake(240, 525, 400, 50)];
-    [doneButton setBackgroundColor:[CPColor blueColor]];
+    var doneButton = [[CPButton alloc] initWithFrame:CGRectMake(320, 480, 200, 50)];
+    [doneButton setBackgroundColor:[CPColor colorWithCalibratedRed:255.0/255.0 green:162.0/255.0 blue:0.0/255.0 alpha:1.0]];
     [doneButton setBordered:NO];
+    [doneButton setTextColor:[CPColor whiteColor]];
+    [doneButton setFont:[CPFont fontWithName:"Helvetica-Bold" size: 20.0]];
     [doneButton setTitle:"Speel nog een quiz!"];
     [doneButton setAction:@selector(playQuiz)];
+    [self setCornerRadius:10.0 ofButton:doneButton];
 
     [_baseView addSubview: _quiz4MainWindow];
     [_quiz4MainWindow addSubview: firstLine];
     [_quiz4MainWindow addSubview: secondLine];
     [_quiz4MainWindow addSubview: doneButton];
+    [_quiz4MainWindow addSubview: videoWebView];
 }
 
 - (void) homeFunction {
@@ -1184,10 +1223,10 @@
     [_sw1MainWindow setBackgroundColor:[CPColor colorWithCalibratedRed:139.0/255.0 green:228.0/255.0 blue:66.0/255.0 alpha:1.0]];
     [self setCornerRadius: 10.0 ofView:_sw1MainWindow];
 
-    var cameraBG = [[CPView alloc] initWithFrame:CGRectMake(21, 80, 396, 291)];
+    var cameraBG = [[CPView alloc] initWithFrame:CGRectMake(21, 80, 388, 291)];
     [cameraBG setBackgroundColor:[CPColor blackColor]];
 
-    var cameraView = [[CPButton alloc] initWithFrame:CGRectMake(30, 30, 336, 231)];
+    var cameraView = [[CPButton alloc] initWithFrame:CGRectMake(26, 30, 336, 231)];
     [cameraView setBackgroundColor:[CPColor colorWithCalibratedRed:139.0/255.0 green:228.0/255.0 blue:66.0/255.0 alpha:1.0]];
     [cameraView setAction:@selector(cameraOn)];
     [cameraView setBordered:NO];
@@ -1197,7 +1236,7 @@
     [cameraImageView setImage:cameraImage];
     [cameraImageView setBackgroundColor:[CPColor clearColor]];
 
-    var description = [[CPView alloc] initWithFrame:CGRectMake(428, 80, 396, 291)];
+    var description = [[CPView alloc] initWithFrame:CGRectMake(21 + 21 + 388, 80, 388, 291)];
     [description setBackgroundColor:[CPColor whiteColor]];
 
     descriptionLabelSW = [[CPTextField alloc] initWithFrame:CGRectMake(10, 10, 380, 260)];
@@ -1205,6 +1244,7 @@
     [descriptionLabelSW setDelegate:self];
     [descriptionLabelSW setStringValue:"voer hier een omschrijving in!"];
     [descriptionLabelSW setEditable:YES];
+    [descriptionLabelSW setTextColor:[CPColor colorWithCalibratedRed:124.0/255.0 green:124.0/255.0 blue:124.0/255.0 alpha:1.0]];
 
     var checkBox = [[CPCheckBox alloc] initWithFrame:CGRectMake(21, 80 + 291 + 10, 20, 20)];
     [checkBox setBackgroundColor:[CPColor clearColor]];
@@ -1213,12 +1253,17 @@
     [checkLabel setFont:[CPFont fontWithName:"Helvetica-Bold" size: 15.0]];
     [checkLabel setStringValue:"Ik wil het graag zelf presenteren!"];
     [checkLabel sizeToFit];
+    [checkLabel setTextColor:[CPColor whiteColor]];
 
-    var doneButton = [[CPButton alloc] initWithFrame:CGRectMake(0, 525, 840, 50)];
-    [doneButton setBackgroundColor:[CPColor blueColor]];
+    var doneButton = [[CPButton alloc] initWithFrame:CGRectMake(335, 505, 170, 50)];
+    [doneButton setBackgroundColor:[CPColor colorWithCalibratedRed:100.0/255.0 green:189.0/255.0 blue:27.0/255.0 alpha:1.0]];
     [doneButton setBordered:NO];
+    [doneButton setTextColor:[CPColor whiteColor]];
+    [doneButton setFont:[CPFont fontWithName:"Helvetica-Bold" size:20.0]];
     [doneButton setTitle:"Klaar!"];
     [doneButton setAction:@selector(sendWorkDone)];
+    [self setCornerRadius: 10.0 ofButton:doneButton];
+
 
 
     [_baseView addSubview:_sw1MainWindow];
@@ -1247,6 +1292,7 @@
     var title = [[CPTextField alloc] initWithFrame:CGRectMake(260, 40, 0, 0)];
     [title setStringValue:"Je werk is opgestuurd!"];
     [title setFont:[CPFont fontWithName:"Helvetica-Bold" size: 30.0]];
+    [title setTextColor:[CPColor colorWithCalibratedRed:123.0/255.0 green:123.0/255.0 blue:123.0/255.0 alpha:1.0]]
     [title sizeToFit];
 
     var thumbsUp = [[CPImage alloc] initWithContentsOfFile:"Resources/symbool-hand01.png" size:CPSizeMake(130, 130)];
@@ -1260,6 +1306,8 @@
     [doneButton setBordered:NO];
     [doneButton setTitle:"Naar home"];
     [doneButton setAction:@selector(homeFunction)];
+    [doneButton setTextColor:[CPColor whiteColor]];
+    [doneButton setFont:[CPFont fontWithName:"Helvetica-Bold" size:20.0]];
     [self setCornerRadius: 10.0 ofButton:doneButton];
 
     [_baseView addSubview:_sw3MainWindow];
@@ -1324,47 +1372,66 @@
 
     var guestName = [[CPTextField alloc] initWithFrame:CGRectMake(21, 21, 0, 0)];
     [guestName setStringValue:"Nick en Simon"];
+    [guestName setTextColor:[CPColor whiteColor]];
     [guestName setFont:[CPFont fontWithName:"Helvetica-Bold" size: 25.0]];
     [guestName sizeToFit];
 
-    var guestImage = [[CPImage alloc] initWithContentsOfFile:"Resources/ico_pencil.png" size:CPSizeMake(350, 280)];
+    var guestImage = [[CPImage alloc] initWithContentsOfFile:"Resources/NickEnSimon02.png" size:CPSizeMake(350, 280)];
     var guestImageView = [[CPImageView alloc] initWithFrame:CGRectMake(21, 70, 350, 280)];
     [guestImageView setImage:guestImage];
-    [guestImageView setBackgroundColor:[CPColor blueColor]];
+    [guestImageView setBackgroundColor:[CPColor clearColor]];
 
     var sectionName = [[CPTextField alloc] initWithFrame:CGRectMake(21, 360, 0, 0)];
     [sectionName setStringValue:"Bij Babbels"];
+    [sectionName setTextColor:[CPColor whiteColor]];
     [sectionName setFont:[CPFont fontWithName:"Helvetica-Bold" size: 25.0]];
     [sectionName sizeToFit];
 
     var genreName = [[CPTextField alloc] initWithFrame:CGRectMake(21, 390, 0, 0)];
-    [genreName setStringValue:"Je werk is opgestuurd!"];
+    [genreName setStringValue:"Genre: muziek"];
+    [genreName setTextColor:[CPColor whiteColor]];
     [genreName setFont:[CPFont fontWithName:"Helvetica-Bold" size: 25.0]];
     [genreName sizeToFit];
 
-    var checkBox = [[CPCheckBox alloc] initWithFrame:CGRectMake(21, 420, 20, 20)];
+    var checkBox = [[CPCheckBox alloc] initWithFrame:CGRectMake(21, 423, 20, 20)];
     [checkBox setBackgroundColor:[CPColor clearColor]];
 
-    var checkLabel = [[CPTextField alloc] initWithFrame:CGRectMake(21 + 25, 420, 0, 0)];
+    var checkLabel = [[CPTextField alloc] initWithFrame:CGRectMake(21 + 25, 425, 0, 0)];
     [checkLabel setFont:[CPFont fontWithName:"Helvetica-Bold" size: 15.0]];
     [checkLabel setStringValue:"Ik wil het graag zelf in de uitzending vragen"];
+    [checkLabel setTextColor:[CPColor whiteColor]];
     [checkLabel sizeToFit];
 
-    var doneButton = [[CPButton alloc] initWithFrame:CGRectMake(0, 525, 840, 50)];
-    [doneButton setBackgroundColor:[CPColor blueColor]];
+    var doneButton = [[CPButton alloc] initWithFrame:CGRectMake(335, 505, 170, 50)];
+    [doneButton setBackgroundColor:[CPColor colorWithCalibratedRed:163.0/255.0 green:48.0/255.0 blue:48.0/255.0 alpha:1.0]];
     [doneButton setBordered:NO];
+    [doneButton setFont:[CPFont fontWithName:"Helvetica-Bold" size: 20.0]];
     [doneButton setTitle:"Opsturen!"];
+    [doneButton setTextColor:[CPColor whiteColor]];
     [doneButton setAction:@selector(doneAsk)];
+    [self setCornerRadius: 10.0 ofButton:doneButton];
 
-    var description = [[CPView alloc] initWithFrame:CGRectMake(428, 70, 396, 350)];
+    var description = [[CPView alloc] initWithFrame:CGRectMake(423, 70, 396, 350)];
     [description setBackgroundColor:[CPColor whiteColor]];
 
-    var descriptionLabel = [[CPTextField alloc] initWithFrame:CGRectMake(10, 10, 380, 260)];
+    var descriptionLabel = [[CPTextField alloc] initWithFrame:CGRectMake(10, 10, 380, 330)];
     [descriptionLabel setFont:[CPFont fontWithName:"Helvetica-Bold" size: 20.0]];
     [descriptionLabel setDelegate:self];
     [descriptionLabel setStringValue:"Stel hier je vraag!"];
-    [descriptionLabel sizeToFit];
+    [descriptionLabel setTextColor:[CPColor colorWithCalibratedRed:124.0/255.0 green:124.0/255.0 blue:124.0/255.0 alpha:1.0]];
     [descriptionLabel setEditable:YES];
+    [descriptionLabel setLineBreakMode:CPLineBreakByWordWrapping]
+
+
+// CPLineBreakByCharWrapping
+// CPLineBreakByClipping
+// CPLineBreakByTruncatingHead
+// CPLineBreakByTruncatingTail
+// CPLineBreakByTruncatingMiddle
+
+
+
+
 
     [_aQ1MainWindow setFrame:CGRectMake(51, 125, 840, 575)];
     [_aQ1MainWindow setBackgroundColor:[CPColor colorWithCalibratedRed:218.0/255.0 green:73.0/255.0 blue:73.0/255.0 alpha:1.0]];
@@ -1391,6 +1458,7 @@
 
     var title = [[CPTextField alloc] initWithFrame:CGRectMake(260, 40, 0, 0)];
     [title setStringValue:"Je vraag is opgestuurd!"];
+    [title setTextColor:[CPColor colorWithCalibratedRed:123.0/255.0 green:123.0/255.0 blue:123.0/255.0 alpha:1.0]]
     [title setFont:[CPFont fontWithName:"Helvetica-Bold" size: 30.0]];
     [title sizeToFit];
 
@@ -1407,6 +1475,7 @@
     [doneButton setTextColor:[CPColor whiteColor]];
     [doneButton setAction:@selector(homeFunction)];
     [self setCornerRadius: 10.0 ofButton:doneButton];
+    [doneButton setFont:[CPFont fontWithName:"Helvetica-Bold" size:20.0]];
 
 
     [_aQ2MainWindow addSubview: title];
