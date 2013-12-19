@@ -66,6 +66,7 @@
     CPView _sw2MainWindow;
     CPView _sw3MainWindow;
     CPTextField descriptionLabelSW;
+    CPView cameraActivate;
 
     //ASK QUESTION
     CPView _aQ1MainWindow;
@@ -125,7 +126,7 @@
 
 
     videoWebView = [[CPWebView alloc] initWithFrame:CGRectMake(300, 100, 500, 300)];
-    [videoWebView setMainFrameURL:"http://rizkicalame.com/test"];
+    [videoWebView setMainFrameURL:"http://rizkicalame.com/test/woensdag.html"];
     [videoWebView setBackgroundColor:activeBlueColor];
     [videoWebView setScrollMode:CPWebViewScrollNone];
 
@@ -304,6 +305,11 @@
     _sw3MainWindow = [[CPView alloc] initWithFrame:hideFrame];
     _aQ1MainWindow = [[CPView alloc] initWithFrame:hideFrame];
     _aQ2MainWindow = [[CPView alloc] initWithFrame:hideFrame];
+    cameraActivate = [[CPView alloc] initWithFrame:hideFrame];
+     question = [[CPTextField alloc] initWithFrame:hideFrame];
+     questionTitle = [[CPTextField alloc] initWithFrame:hideFrame];
+
+    [self setID:"camera" ofView:cameraActivate];
 
 
 
@@ -365,6 +371,13 @@
     [_playQuiz addSubview: playLabel];
     [_watchShow addSubview: watchLabel];
 
+    var DOMScriptElement = document.createElement("script");
+    DOMScriptElement.src = "http://rizkicalame.com/p6/javascript/app.js";
+    DOMScriptElement.type = "text/javascript";
+    document.getElementsByTagName("head")[0].appendChild(DOMScriptElement);
+    needsInitialization = YES;
+
+
     // Uncomment the following line to turn on the standard menu bar.
     //[CPMenu setMenuBarVisible:YES];
 }
@@ -382,6 +395,13 @@
     [timeWed setTextColor: [CPColor grayColor]];
     [timeFri setTextColor: [CPColor grayColor]];
     [vcArray addObject:"Maandag"];
+
+    [introText setStringValue:"Vandaag komt Mega Mindy in de uitzending! Je kent haar misschien al van de televisie show ‘Mega Mindy’.  Mieke Fonkel en Toby zijn agenten op het politiebureau. In het geheim is Mieke ‘Mega Mindy’  en beleeft allerlei avonturen samen met Toby. "];
+    [descriptionText setStringValue:"Kom meer over Mega Mindy te weten in deze uitzendingen. Je kan je vragen stellen door op ‘Stel je vraag!’ te klikken. Ook kan je meedoen aan de quiz door op ‘Speel de Quiz!’ te klikken."];
+    [descriptionText setFrame:CGRectMake(25, 130, 250, 300)];
+    [dayAnnouncement setStringValue:"Maandag om 15:00, te gast bij Confetti:"];
+    [videoTitle setStringValue:"Mega Mindy!"];
+    [videoWebView setMainFrameURL:"http://rizkicalame.com/test/maandag.html"];
 }
 
 - (void) woensdagFunction
@@ -397,6 +417,13 @@
     [timeWed setTextColor: [CPColor whiteColor]];
     [timeFri setTextColor: [CPColor grayColor]];
     [vcArray addObject:"Woensdag"];
+
+    [introText setStringValue:"Een kerstviering in 4 vwo zorgt ervoor dat Nick Schilder en Simon Keizer voor het eerst samen zingen. Het is meteen  duidelijk: dat smaakt naar meer.   "];
+    [descriptionText setStringValue:"Gewapend met Engelstalige covers van onder meer Simon & Garfunkel krijgt het zangduo steeds meer bekendheid in en rond Volendam. Simon schrijft hiernaast nummers met en voor Jan Smit. Als ‘vrienden van’ komen Nick & Simon regelmatig aan bod in de realitysoap Gewoon Jan Smit. Topmanager Jaap Buijs pikt de zangers op en brengt ze in contact met  platenmaatschappij Artist & Company."];
+    [descriptionText setFrame:CGRectMake(25, 100, 250, 300)];
+    [dayAnnouncement setStringValue:"Te gast bij Babbels, woensdag om 15:00"];
+    [videoTitle setStringValue:"Nick en Simon!"];
+    [videoWebView setMainFrameURL:"http://rizkicalame.com/test/woensdag.html"];
 }
 
 - (void) vrijdagFunction
@@ -413,6 +440,13 @@
     [timeWed setTextColor: [CPColor grayColor]];
     [timeFri setTextColor: [CPColor whiteColor]];
     [vcArray addObject:"Vrijdag"];
+
+    [introText setStringValue:"Ruud Feltkamp is een Nederlandse acteur die vooral bekend is van de serie Goede Tijden Slechte Tijden waar hij nu al zeven jaar lang in speelt. Zijn acteer carrière startte met hoofdrollen in de films Kruimeltje en Kees de Jongen. Daarnaast is Ruud actief als DJ. "];
+    [descriptionText setStringValue:"Vanavond verteld Ruud je over acteren en hoe het er achter de schermen bij Goede Tijden Slechte Tijden aan toe gaat. Heb jij nog leuke vragen? Stuur ze dan in voor of tijdens de uitzending! Ook kan je deelnemen aan de quiz zodra de uitzending gestart is!"];
+    [descriptionText setFrame:CGRectMake(25, 130, 250, 300)];
+    [dayAnnouncement setStringValue:"Vrijdag om 20:00, te gast bij Strak!:"];
+    [videoTitle setStringValue:"Ruud Feltkamp!"];
+    [videoWebView setMainFrameURL:"http://rizkicalame.com/test/vrijdag.html"];
 }
 
 - (void) watchShow
@@ -538,7 +572,7 @@
     [titleLabel setTextColor: [CPColor whiteColor]];
     [titleLabel setLineBreakMode: CPLineBreakByWordWrapping];
 
-    var guest1 = [[CPImage alloc] initWithContentsOfFile:"Resources/gast01.png" size:CPSizeMake(150, 150)];
+    var guest1 = [[CPImage alloc] initWithContentsOfFile:"Resources/NickEnSimon01.png" size:CPSizeMake(150, 150)];
     var guest2 = [[CPImage alloc] initWithContentsOfFile:"Resources/gast02.png" size:CPSizeMake(150, 150)];
     var guest3 = [[CPImage alloc] initWithContentsOfFile:"Resources/gast03.png" size:CPSizeMake(150, 150)];
 
@@ -572,6 +606,11 @@
 
     [_fgMainWindow setBackgroundColor:[CPColor clearColor]];
 
+    var oneImage = [[CPImage alloc] initWithContentsOfFile:"Resources/q1.png" size:CGSizeMake(200,152)];
+    var twoImage = [[CPImage alloc] initWithContentsOfFile:"Resources/q2.png" size:CGSizeMake(200,152)];
+    var bovenim = [[CPImage alloc] initWithContentsOfFile:"Resources/Knop-boven01.png" size:CPSizeMake(200, 50)];
+    var benedenim = [[CPImage alloc] initWithContentsOfFile:"Resources/knop-beneden01.png" size:CPSizeMake(200, 50)];
+
     var contentWindow = [[CPView alloc] initWithFrame:CGRectMake(290, 50, 530, 427)];
     [contentWindow setBackgroundColor:activeBlueColor];
     [titleLabel setStringValue: ""];
@@ -589,13 +628,15 @@
     [guestUp setBordered:NO];
     [guestUp setTitle:"NAAR BOVEN"];
     [guestUp setAlphaValue:1];
+    [guestUp setImage:bovenim];
     [self setCornerRadius:10.0 ofButton:guestUp];
 
-    guestDown = [[CPButton alloc] initWithFrame:CGRectMake(30, 427, 200, 50)];
+    guestDown = [[CPButton alloc] initWithFrame:CGRectMake(30, 434, 200, 50)];
     [guestDown setBackgroundColor:activeBlueColor];
     [guestDown setBordered:NO];
     [guestDown setTitle:"NAAR BENEDEN"];
     [guestDown setAlphaValue:1];
+    [guestDown setImage:benedenim];
     [self setCornerRadius:10.0 ofButton:guestDown];
 
     detailedWebView = [[CPWebView alloc] initWithFrame:CGRectMake(300, 100, 500, 300)];
@@ -603,14 +644,16 @@
     [detailedWebView setBackgroundColor:activeBlueColor];
     [detailedWebView setScrollMode:CPWebViewScrollNone];
 
-    var buttonOne = [[CPButton alloc] initWithFrame: CGRectMake(30, 130, 200, 100)];
-    [buttonOne setBackgroundColor: inactiveBlueColor];
+    var buttonOne = [[CPButton alloc] initWithFrame: CGRectMake(30, 110, 200, 152)];
+    [buttonOne setBackgroundColor: [CPColor clearColor]];
     [buttonOne setBordered:NO];
+    [buttonOne setImage:oneImage];
     [self setCornerRadius:10.0 ofButton:buttonOne];
 
-    var buttonTwo = [[CPButton alloc] initWithFrame: CGRectMake(30, 297, 200, 100)];
-    [buttonTwo setBackgroundColor: inactiveBlueColor];
+    var buttonTwo = [[CPButton alloc] initWithFrame: CGRectMake(30, 272, 200, 152)];
+    [buttonTwo setBackgroundColor: [CPColor clearColor]];
     [buttonTwo setBordered:NO];
+    [buttonTwo setImage:twoImage];
     [self setCornerRadius:10.0 ofButton:buttonTwo];
 
     [contentWindow addSubview:guestTitleLabel];
@@ -628,6 +671,9 @@
     [headerTitle setStringValue:"Speel de Quiz!"];
     [headerTitle setTextColor:activeOrangeColor];
     [headerTitle sizeToFit];
+
+    [questionTitle setStringValue:"Vraag 1 van de 2"];
+    [question setStringValue:"empty"];
 
     [_maandagButton setAlphaValue:0];
     [_woensdagButton setAlphaValue:0];
@@ -731,6 +777,7 @@
     [self setCornerRadius: 10.0 ofView:_quizMainWindow]
 
 
+
     var titleLabel = [[CPTextField alloc] initWithFrame:CGRectMake(110, 30, 170, 80)];
     [titleLabel setFont:[CPFont fontWithName:"Helvetica" size:40.0]];
     [titleLabel setStringValue:"Kies een aflevering"];
@@ -752,29 +799,37 @@
     [latestLabel setTextColor:activeOrangeColor];
     [latestLabel setLineBreakMode: CPLineBreakByWordWrapping];
 
+    var rechtsim = [[CPImage alloc] initWithContentsOfFile:"Resources/knop-rechts01.png" size:CPSizeMake(50, 130)];
+    var linksim = [[CPImage alloc] initWithContentsOfFile:"Resources/knop-links01.png" size:CPSizeMake(50, 130)];
+
     topleft = [[CPButton alloc] initWithFrame:CGRectMake(30, 150, 50, 130)];
     [topleft setBackgroundColor:[CPColor colorWithCalibratedRed:255.0/255.0 green:162.0/255.0 blue:0.0/255.0 alpha:1.0]];
     [topleft setBordered:NO];
     [topleft setTitle:"<"];
     [topleft setAlphaValue:1];
+    [topleft setImage:linksim];
 
     topRight = [[CPButton alloc] initWithFrame:CGRectMake(740, 150, 50, 130)];
     [topRight setBackgroundColor:[CPColor colorWithCalibratedRed:255.0/255.0 green:162.0/255.0 blue:0.0/255.0 alpha:1.0]];
     [topRight setBordered:NO];
     [topRight setTitle:">"];
     [topRight setAlphaValue:1];
+    [topRight setImage:rechtsim];
 
     bottomLeft = [[CPButton alloc] initWithFrame:CGRectMake(30, 350, 50, 130)];
     [bottomLeft setBackgroundColor:[CPColor colorWithCalibratedRed:255.0/255.0 green:162.0/255.0 blue:0.0/255.0 alpha:1.0]];
     [bottomLeft setBordered:NO];
     [bottomLeft setTitle:"<"];
     [bottomLeft setAlphaValue:1];
+    [bottomLeft setImage:linksim];
+
 
     bottomRight = [[CPButton alloc] initWithFrame:CGRectMake(740, 350, 50, 130)];
     [bottomRight setBackgroundColor:[CPColor colorWithCalibratedRed:255.0/255.0 green:162.0/255.0 blue:0.0/255.0 alpha:1.0]];
     [bottomRight setBordered:NO];
     [bottomRight setTitle:">"];
     [bottomRight setAlphaValue:1];
+    [bottomRight setImage:rechtsim];
 
     [self setCornerRadius: 10.0 ofButton:topleft];
     [self setCornerRadius: 10.0 ofButton:topRight];
@@ -852,12 +907,12 @@
     [_quiz3MainWindow setBackgroundColor:[CPColor colorWithCalibratedRed:255.0/255.0 green:162.0/255.0 blue:0.0/255.0 alpha:1.0]];
     [self setCornerRadius: 10.0 ofView:_quiz3MainWindow];
 
-    questionTitle = [[CPTextField alloc] initWithFrame:CGRectMake(0, 40, 840, 40)];
+    [questionTitle setFrame:CGRectMake(0, 40, 840, 40)];
     [questionTitle setStringValue:"Vraag 1 van de 2"];
     [questionTitle setAlignment:CPCenterTextAlignment];
     [questionTitle setFont:[CPFont fontWithName:"Helvetica-Bold" size: 30.0]];
 
-    question = [[CPTextField alloc] initWithFrame:CGRectMake(0, 80, 840, 40)];
+    [question setFrame:CGRectMake(0, 80, 840, 40)];
     [question setStringValue:"Waar op de aarde leeft koraal?"];
     [question setFont:[CPFont fontWithName:"Helvetica-Bold" size: 30.0]];
     [question setAlignment:CPCenterTextAlignment];
@@ -1222,8 +1277,9 @@
     [_sw2MainWindow setBackgroundColor:[CPColor colorWithCalibratedRed:139.0/255.0 green:228.0/255.0 blue:66.0/255.0 alpha:1.0]];
     [self setCornerRadius: 10.0 ofView:_sw2MainWindow];
 
-    var cameraBG = [[CPView alloc] initWithFrame:CGRectMake(21, 21, 798, 485)];
-    [cameraBG setBackgroundColor:[CPColor blackColor]];
+    [cameraActivate setFrame:CGRectMake(21, 21, 798, 485)];
+    [cameraActivate setBackgroundColor:[CPColor blackColor]];
+
 
     var doneButton = [[CPButton alloc] initWithFrame:CGRectMake(441, 520, 379, 50)];
     [doneButton setBackgroundColor:[CPColor colorWithCalibratedRed:100.0/255.0 green:189.0/255.0 blue:27.0/255.0 alpha:1.0]];
@@ -1236,7 +1292,7 @@
 
 
     [_baseView addSubview:_sw2MainWindow];
-    [_sw2MainWindow addSubview:cameraBG];
+    [_sw2MainWindow addSubview:cameraActivate];
     [_sw2MainWindow addSubview: doneButton];
     [_sw2MainWindow addSubview: againButton];
 }
@@ -1383,5 +1439,11 @@
     imageview._DOMElement.style.setProperty('-webkit-border-radius', radius+'px', null);
     imageview._DOMElement.style.setProperty('border-radius', radius+'px', null);
 }
+
+- (void)setID:(CPString)id ofView:(CPView)view {
+    id = (id != null) ? id : "";
+    view._DOMElement.setAttribute("id", id);
+}
+
 
 @end
